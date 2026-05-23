@@ -1,1 +1,0 @@
-# akirafukuda1017.github.io
