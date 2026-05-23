@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akira Fukuda Photo exhibition</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', 'Helvetica', 'Noto Serif JP', serif; background-color: #f2f2f2; color: #111; overflow-x: hidden; }
+
+    .section-label { font-size: 0.8rem; letter-spacing: 1px; display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .section-dot { width: 6px; height: 6px; background-color: #00c3d9; border-radius: 50%; }
+    .section-title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 500; letter-spacing: 1px; }
+
+    .hero-section { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+    .ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; display: flex; flex-direction: column; justify-content: space-between; }
+    .interactive { pointer-events: auto; }
+    .top-bar { padding: 30px 40px; display: flex; justify-content: space-between; align-items: center; }
+    .logo-link { display: inline-flex; align-items: center; text-decoration: none; }
+    .main-logo { height: 24px; width: auto; object-fit: contain; }
+
+    .lang-switch { display: flex; align-items: center; font-size: 0.85rem; letter-spacing: 1px; }
+    .lang-btn { cursor: pointer; padding: 3px 10px; border-radius: 20px; transition: all 0.3s ease; color: #888; }
+    .lang-btn.active { background-color: #00c3d9; color: #fff; }
+    .lang-btn:hover:not(.active) { color: #111; }
+
+    .nav-toggle { display: flex; background: #fff; border: 1px solid #ddd; border-radius: 30px; padding: 5px; font-size: 0.8rem; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+    .nav-toggle a { padding: 5px 15px; border-radius: 20px; cursor: pointer; text-decoration: none; color: #111; transition: all 0.3s; }
+    .nav-toggle a:hover { opacity: 0.7; }
+    .nav-toggle a.active { border: 1px solid #ccc; background: #f9f9f9; pointer-events: none; }
+
+    .main-title { position: absolute; top: 20%; left: 50%; transform: translateX(-50%); font-size: clamp(2rem, 5vw, 5rem); letter-spacing: -2px; font-weight: 500; color: #111; z-index: -1; white-space: nowrap; }
+    
+    .bottom-bar { padding: 30px 40px; display: flex; justify-content: space-between; align-items: flex-end; }
+    .copyright { font-size: 0.8rem; }
+    .desc-time { text-align: center; font-size: 0.75rem; color: #444; max-width: 300px; line-height: 1.6; }
+    .time-text { margin-top: 10px; font-family: monospace; letter-spacing: 1px; }
+    
+    .play-btn { width: 50px; height: 50px; background: #fff; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; justify-content: center; align-items: center; transition: 0.3s; }
+    .play-btn:hover { background: #eee; }
+    .play-icon { width: 0; height: 0; border-style: solid; border-width: 8px 0 8px 12px; border-color: transparent transparent transparent #111; }
+    .pause-icon { width: 12px; height: 16px; border-left: 4px solid #111; border-right: 4px solid #111; }
+
+    .gallery-container { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; cursor: grab; perspective: 1200px; }
+    .gallery-container:active { cursor: grabbing; }
+    .gallery-list { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; }
+    .gallery-item { position: absolute; top: 50%; left: 50%; height: 55vh; width: 42vh; margin-top: -27.5vh; margin-left: -21vh; will-change: transform; box-shadow: 0 20px 40px rgba(0,0,0,0.2); background-color: #ddd; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+    .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; opacity: 0; pointer-events: none; transition: opacity 0.1s linear; }
+
+    .kyu-merge-btn { position: relative; display: inline-flex; align-items: center; text-decoration: none; height: 46px; }
+    .btn-text { display: inline-flex; align-items: center; height: 100%; padding: 0 30px; background-color: #00c3d9; color: #fff; border-radius: 23px; font-size: 0.9rem; font-weight: 500; letter-spacing: 1px; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    .btn-icon { position: absolute; top: 0; right: -56px; width: 46px; height: 46px; background-color: #00c3d9; color: #fff; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    .arrow-icon { transform: none; font-weight: 300; } 
+    .kyu-merge-btn:hover .btn-text { padding-right: 56px; background-color: #00a5b8; }
+    .kyu-merge-btn:hover .btn-icon { right: 0; background-color: transparent; }
+
+    .brand-section, .space-section, .newsroom-section { position: relative; width: 100%; padding: 100px 40px 150px; border-top: 1px solid #ddd; max-width: 1400px; margin: 0 auto; }
+    .brand-top, .space-content { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 60px; }
+    .brand-title-wrap, .space-text-area { width: 40%; }
+    .brand-desc, .space-image-area { width: 55%; }
+    .brand-desc { font-size: 1.1rem; line-height: 1.8; color: #333; padding-top: 40px; }
+    .space-desc { font-size: 1rem; line-height: 1.8; color: #444; margin-top: 40px; margin-bottom: 50px; }
+    
+    .brand-gallery { display: flex; gap: 15px; width: 100%; height: 450px; }
+    .brand-img { flex: 1; height: 100%; border-radius: 8px; overflow: hidden; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease; transform: translateX(0); opacity: 1; background-color: #ddd;}
+    .brand-img img { width: 100%; height: 100%; object-fit: cover; }
+    .brand-img.is-collapsed { transform: translateX(var(--offset)); opacity: 0; }
+    
+    .space-image-area { background-color: #ddd; border-radius: 8px;}
+    .space-image-area img { width: 100%; height: 500px; object-fit: cover; border-radius: 8px; }
+
+    .news-list { border-top: 1px solid #111; margin-top: 20px; }
+    .news-item { display: flex; align-items: center; padding: 25px 10px; border-bottom: 1px solid #111; text-decoration: none; color: #111; transition: background-color 0.3s ease; }
+    .news-item:hover { background-color: #e8e8e8; }
+    .news-category { width: 30%; font-size: 0.95rem; color: #444; }
+    .news-title { width: 65%; font-size: 1.1rem; font-weight: 400; }
+    .news-arrow { width: 5%; text-align: right; font-size: 1.2rem; font-weight: 300; transition: transform 0.3s ease; }
+    .news-item:hover .news-arrow { transform: translateX(5px); }
+    .news-btn-wrapper { display: flex; justify-content: flex-end; margin-top: 30px; }
+    .plus-icon-wrapper { display: flex; justify-content: center; margin-top: 150px; font-size: 2rem; font-weight: 300; color: #111; }
+
+    .footer-section { position: relative; width: 100vw; height: 100vh; background-color: #f2f2f2; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .footer-card { width: 95%; height: 90%; background-color: #0a192f; border-radius: 25px; color: #fff; padding: 60px 80px; display: flex; flex-direction: column; justify-content: space-between; transform: scale(var(--scale, 1.15)) translateY(var(--translateY, 15%)); transform-origin: bottom center; will-change: transform; }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .footer-logo { display: inline-flex; height: 80px; width: auto; text-decoration: none; }
+    .footer-logo img { height: 100%; width: auto; object-fit: contain; }
+    .footer-links { display: flex; gap: 100px; font-size: 0.95rem; font-weight: 300; letter-spacing: 1px; line-height: 2; }
+    .link-col { display: flex; flex-direction: column; gap: 5px; }
+    .link-col a { color: #9ab; text-decoration: none; transition: color 0.3s; }
+    .link-col a:hover { color: #fff; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+    .sns-buttons { display: flex; gap: 15px; }
+    .sns-buttons a { display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 32px; border: 1px solid #4a5a6a; border-radius: 16px; color: #9ab; text-decoration: none; font-size: 0.85rem; letter-spacing: 1px; transition: all 0.3s; }
+    .sns-buttons a:hover { background-color: #fff; color: #0a192f; border-color: #fff; }
+    .footer-copy { font-size: 0.8rem; color: #6a7a8a; letter-spacing: 1px; font-weight: 300; }
+
+    .en-text { display: none; }
+    body.en-mode .ja-text { display: none; }
+    body.en-mode .en-text { display: block; }
+
+    @media (max-width: 768px) {
+      .main-title { font-size: 1.8rem; letter-spacing: -1px; }
+      .brand-top, .space-content { flex-direction: column; gap: 30px; }
+      .brand-title-wrap, .brand-desc, .space-text-area, .space-image-area { width: 100%; }
+      .brand-desc, .space-desc { padding-top: 0; }
+      .brand-gallery { height: 250px; gap: 5px; }
+      .space-image-area img { height: 300px; }
+      .news-item { flex-wrap: wrap; padding: 20px 5px; }
+      .news-category { width: 100%; font-size: 0.8rem; margin-bottom: 10px; color: #777; }
+      .news-title { width: 90%; font-size: 1rem; }
+      .news-arrow { width: 10%; }
+      .footer-card { padding: 40px 30px; border-radius: 20px; }
+      .footer-top { flex-direction: column; gap: 40px; }
+      .footer-logo { height: 50px; }
+      .footer-links { gap: 40px; font-size: 0.85rem; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; gap: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="hero-section">
+    <div class="ui-layer">
+      <div class="top-bar">
+        <a href="index.html" class="logo-link interactive">
+          <img src="images/logo.png" alt="My Logo" class="main-logo" onerror="this.style.display='none'">
+        </a>
+        <div class="lang-switch interactive">
+          <span id="btn-en" class="lang-btn">en</span>
+          <span id="btn-ja" class="lang-btn active">ja</span>
+        </div>
+        <div class="nav-toggle interactive">
+          <a href="index.html" class="active">exhibition</a>
+          <a href="profile.html">profile</a>
+        </div>
+      </div>
+      
+      <h1 class="main-title">Memories, easily and forever</h1>
+      
+      <div class="bottom-bar">
+        <div class="copyright interactive">©Akira 2026</div>
+        <div class="desc-time">
+          <p class="ja-text">Akira Fukudaは映像ディレクター、エディター、写真家です。その一部をご覧ください。</p>
+          <p class="en-text">Akira Fukuda is a visual director, editor, and photographer. Please take a look at a glimpse of his work.</p>
+          <div id="clock" class="time-text"></div>
+        </div>
+        <button class="play-btn interactive" id="playBtn"><div id="playIcon" class="pause-icon"></div></button>
+      </div>
+    </div>
+    <div class="gallery-container">
+      <div class="gallery-list" id="galleryList"></div>
+    </div>
+  </section>
+
+  <!-- Brand (Think) -->
+  <section class="brand-section">
+    <div class="brand-top">
+      <div class="brand-title-wrap">
+        <div class="section-label"><span class="section-dot"></span> think</div>
+        <h2 class="section-title">Akira Fukuda</h2>
+      </div>
+      <div class="brand-desc">
+        <div class="ja-text">スマホやAIによって「無限に量産できる利便性」を得た現代だからこそ、あえてデジタルのノイズから離れ、不要なものを削ぎ落とす『Think Simple』の哲学が必要です。かつての写真撮影のように、「一度きりの特別な瞬間」に集中し、大切にすることこそが、私たちが本当に求めている本質であると私は信じています。Treasure every encounter.</div>
+        <div class="en-text">In an era where smartphones and AI offer the convenience of endless mass production, we need the philosophy of "Think Simple"—stepping away from digital noise and stripping away the unnecessary. I believe that focusing on and cherishing a "once-in-a-lifetime moment," just like in traditional photography, is the true essence of what we are seeking. Treasure every encounter.</div>
+      </div>
+    </div>
+    <div class="brand-gallery" id="brandGallery">
+      <div class="brand-img"><img src="images/brand01.jpg" alt="brand"></div>
+      <div class="brand-img"><img src="images/brand02.jpg" alt="brand"></div>
+      <div class="brand-img"><img src="images/brand03.jpg" alt="brand"></div>
+      <div class="brand-img"><img src="images/brand04.jpg" alt="brand"></div>
+    </div>
+  </section>
+
+  <!-- Meet -->
+  <section class="space-section">
+    <div class="space-content">
+      <div class="space-text-area">
+        <div class="section-label"><span class="section-dot"></span> talk</div>
+        <h2 class="section-title">meet</h2>
+        <div class="space-desc">
+          <div class="ja-text">
+            撮影の仕方、気にするポイント、編集を教えることができます。<br>
+            実際に体験をしつつお茶を楽しんだり、私と直接対話しながら<br>
+            技術的な新たな発見を得ることができると思います。<br><br>
+            また、それだけでなくさまざまなお話を交えつつ、<br>
+            論理と情緒と向き合うひとときをお互いに味わえたらなと思います。
+          </div>
+          <div class="en-text">
+            I can share my shooting techniques, key perspectives, and editing skills.<br>
+            Through hands-on experience, sharing a cup of tea, and conversing directly with me,<br>
+            I hope you can discover new technical insights.<br><br>
+            Moreover, beyond just technical aspects, I hope we can share various stories<br>
+            and enjoy a moment of facing both logic and emotion together.
+          </div>
+        </div>
+        <a href="meet.html" class="kyu-merge-btn"><span class="btn-text">view more</span><span class="btn-icon"><span class="arrow-icon">↪︎</span></span></a>
+      </div>
+      <div class="space-image-area">
+        <img src="images/space.jpg" alt="Meet">
+      </div>
+    </div>
+  </section>
+
+  <!-- Memo -->
+  <section class="newsroom-section">
+    <div class="section-label"><span class="section-dot"></span> memo</div>
+    <div class="news-list">
+      
+      <!-- ★ noteのクリエイターページへのリンクに変更 ★ -->
+      <a href="https://note.com/akirafukuda1017" target="_blank" rel="noopener noreferrer" class="news-item">
+        <div class="news-category">think about</div>
+        <div class="news-title">note</div>
+        <div class="news-arrow">↪︎</div>
+      </a>
+      
+      <a href="https://kakaku.com/item/K0000169836/" target="_blank" rel="noopener noreferrer" class="news-item">
+        <div class="news-category">Camera</div>
+        <div class="news-title">Panasonic LUMIX DMC-GF2</div>
+        <div class="news-arrow">↪︎</div>
+      </a>
+      
+      <a href="team.html" class="news-item">
+        <div class="news-category">team</div>
+        <div class="news-title">EC course</div>
+        <div class="news-arrow">↪︎</div>
+      </a>
+      
+    </div>
+    <div class="news-btn-wrapper">
+      <a href="memo.html" class="kyu-merge-btn"><span class="btn-text">view more</span><span class="btn-icon"><span class="arrow-icon">↪︎</span></span></a>
+    </div>
+    <div class="plus-icon-wrapper">＋</div>
+  </section>
+
+  <!-- Footer -->
+  <section class="footer-section" id="footerSection">
+    <div class="footer-card" id="footerCard">
+      <div class="footer-top">
+        <a href="index.html" class="footer-logo">
+          <img src="images/logo.png" alt="My Logo" onerror="this.style.display='none'">
+        </a>
+        <div class="footer-links">
+          <div class="link-col">
+            <a href="index.html">exhibition</a>
+            <a href="profile.html">profile</a>
+          </div>
+          <div class="link-col">
+            <a href="memo.html">memo</a>
+            <a href="meet.html">meet</a>
+            <a href="team.html">team</a>
+            <a href="portfolio.html">portfolio</a>
+            <a href="contacts.html">contacts</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="sns-buttons">
+          <a href="https://x.com/AFGToffical" target="_blank" rel="noopener noreferrer">X</a>
+          <a href="https://www.instagram.com/akirafukuda_offical/" target="_blank" rel="noopener noreferrer">Ig</a>
+        </div>
+        <div class="footer-copy">©Akira 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const btnEn = document.getElementById('btn-en');
+      const btnJa = document.getElementById('btn-ja');
+      const body = document.body;
+      btnEn.addEventListener('click', () => { body.classList.add('en-mode'); btnEn.classList.add('active'); btnJa.classList.remove('active'); });
+      btnJa.addEventListener('click', () => { body.classList.remove('en-mode'); btnJa.classList.add('active'); btnEn.classList.remove('active'); });
+
+      const images = ["images/photo01.jpg", "images/photo02.jpg", "images/photo03.jpg", "images/photo04.jpg", "images/photo05.jpg", "images/photo06.jpg", "images/photo07.jpg", "images/photo08.jpg", "images/photo09.jpg", "images/photo10.jpg"];
+      const galleryList = document.getElementById('galleryList');
+      const numItems = images.length * 2; 
+      for(let i = 0; i < numItems; i++) {
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+        item.innerHTML = `<img src="${images[i % images.length]}" alt="img${i}" onerror="this.style.display='none'"><div class="overlay"></div>`;
+        galleryList.appendChild(item);
+      }
+
+      const items = document.querySelectorAll('.gallery-item');
+      let itemWidth, gap, step, circumference, radius;
+      let currentScroll = 0, targetScroll = 0, isDragging = false, startX = 0, isPlaying = true;
+      const autoScrollSpeed = 0.8;
+
+      function resize() {
+        itemWidth = items[0].getBoundingClientRect().width;
+        gap = window.innerWidth > 768 ? 40 : 20;
+        step = itemWidth + gap;
+        circumference = step * numItems;
+        radius = circumference / (2 * Math.PI);
+        galleryList.style.transform = `translateZ(${-radius}px)`;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      window.addEventListener('wheel', (e) => { targetScroll += e.deltaY * 0.8 + e.deltaX * 0.8; });
+      const startDrag = (x) => { isDragging = true; startX = x; };
+      const moveDrag = (x) => { if (!isDragging) return; targetScroll += (startX - x) * 1.5; startX = x; };
+      const endDrag = () => { isDragging = false; };
+      window.addEventListener('mousedown', (e) => startDrag(e.clientX));
+      window.addEventListener('mousemove', (e) => moveDrag(e.clientX));
+      window.addEventListener('mouseup', endDrag);
+      window.addEventListener('mouseleave', endDrag);
+      window.addEventListener('touchstart', (e) => startDrag(e.touches[0].clientX));
+      window.addEventListener('touchmove', (e) => moveDrag(e.touches[0].clientX));
+      window.addEventListener('touchend', endDrag);
+
+      const footerSection = document.getElementById('footerSection');
+      const footerCard = document.getElementById('footerCard');
+      function animate() {
+        if (isPlaying && !isDragging) targetScroll += autoScrollSpeed;
+        currentScroll += (targetScroll - currentScroll) * 0.08;
+        const anglePerItem = 360 / numItems;
+        const scrollAngle = (currentScroll / circumference) * 360;
+
+        items.forEach((item, i) => {
+          let itemAngle = (i * anglePerItem) - scrollAngle;
+          item.style.transform = `rotateY(${itemAngle}deg) translateZ(${radius}px)`;
+          let normalizedAngle = ((itemAngle % 360) + 360) % 360;
+          if (normalizedAngle > 180) normalizedAngle = 360 - normalizedAngle;
+          item.querySelector('.overlay').style.opacity = Math.min(normalizedAngle / 80, 0.8);
+        });
+
+        if(footerSection && footerCard) {
+          const rect = footerSection.getBoundingClientRect();
+          const winH = window.innerHeight;
+          let scrolled = winH - rect.top;
+          let progress = scrolled / rect.height; 
+          progress = Math.max(0, Math.min(1, progress));
+          const scale = 1.15 - (0.15 * progress);
+          const translateY = 15 - (15 * progress);
+          footerCard.style.setProperty('--scale', scale);
+          footerCard.style.setProperty('--translateY', `${translateY}%`);
+        }
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      const playBtn = document.getElementById('playBtn');
+      const playIcon = document.getElementById('playIcon');
+      playBtn.addEventListener('click', () => {
+        isPlaying = !isPlaying;
+        playIcon.className = isPlaying ? 'pause-icon' : 'play-icon';
+      });
+
+      const clockElement = document.getElementById('clock');
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      setInterval(() => {
+        const now = new Date();
+        clockElement.innerText = `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')} : ${String(now.getMinutes()).padStart(2, '0')} : ${String(now.getSeconds()).padStart(2, '0')}`;
+      }, 1000);
+
+      const brandGallery = document.getElementById('brandGallery');
+      const brandImages = document.querySelectorAll('.brand-img');
+      function setupBrandGallery() {
+        const containerLeft = brandGallery.getBoundingClientRect().left;
+        brandImages.forEach((img, index) => {
+          if (index === 0) return;
+          img.style.setProperty('--offset', `-${img.getBoundingClientRect().left - containerLeft}px`);
+          img.classList.add('is-collapsed');
+        });
+      }
+      function expandBrandGallery() {
+        brandImages.forEach((img, index) => {
+          img.style.transitionDelay = `${index * 0.1}s`;
+          img.classList.remove('is-collapsed');
+        });
+      }
+      setupBrandGallery();
+
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            expandBrandGallery();
+            obs.unobserve(entry.target); 
+          }
+        });
+      }, { threshold: 0.3 });
+      observer.observe(brandGallery);
+    });
+  </script>
+</body>
+</html>

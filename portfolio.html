@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akira Fukuda | portfolio</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========== ベース設定 ========== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', 'Helvetica', 'Noto Serif JP', serif; background-color: #f7f7f7; color: #111; min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* ========== ナビゲーションバー ========== */
+    .top-bar { width: 100%; padding: 30px 40px; display: flex; justify-content: space-between; align-items: center; }
+    .breadcrumb-nav { font-size: 1.1rem; letter-spacing: 1px; color: #999; display: flex; align-items: center; gap: 10px; }
+    .breadcrumb-nav a { color: #999; text-decoration: none; transition: color 0.3s; }
+    .breadcrumb-nav a:hover { color: #111; }
+    .breadcrumb-nav .separator { color: #ccc; font-weight: 300; }
+    .breadcrumb-nav .current-page { color: #111; font-weight: 500; }
+
+    .lang-switch-box { display: flex; align-items: center; gap: 5px; background-color: #eaeaea; padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; cursor: pointer; transition: background-color 0.3s; }
+    .lang-switch-box:hover { background-color: #ddd; }
+
+    /* ========== メインコンテンツ ========== */
+    .main-content { flex: 1; display: flex; flex-direction: column; padding-top: 10vh; padding-left: 15%; padding-right: 15%; padding-bottom: 15vh; max-width: 1200px; margin: 0 auto; }
+    .page-icon { font-size: 4rem; margin-bottom: 20px; }
+    .page-title { font-size: 4rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 10px; color: #000; }
+    .page-subtitle { font-size: 1.2rem; color: #666; margin-bottom: 60px; letter-spacing: 1px; }
+
+    .article-box {
+      background-color: #fff; padding: 60px 80px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); line-height: 1.9; color: #333; font-size: 1.05rem;
+    }
+
+    .profile-meta { background-color: #f9f9f9; padding: 30px; border-radius: 8px; margin-bottom: 50px; border-left: 4px solid #111; }
+    .profile-meta h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; color: #111; }
+    .meta-list { list-style: none; padding: 0; }
+    .meta-list li { display: flex; margin-bottom: 10px; }
+    .meta-label { width: 140px; font-weight: 500; color: #555; flex-shrink: 0; }
+    .meta-value { flex: 1; color: #111; }
+
+    .heading-l { font-size: 1.8rem; font-weight: 700; color: #111; margin-top: 60px; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid #eaeaea; }
+    .heading-m { font-size: 1.3rem; font-weight: 700; color: #111; margin-top: 40px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+    .heading-m::before { content: ''; display: inline-block; width: 6px; height: 1.3rem; background-color: #00c3d9; border-radius: 3px; }
+
+    .core-value-list { list-style: none; padding: 0; margin-bottom: 30px; }
+    .core-value-list li { background-color: #fcfcfc; border: 1px solid #eee; padding: 20px 25px; margin-bottom: 15px; border-radius: 8px; }
+    .core-title { font-weight: 700; font-size: 1.1rem; color: #222; margin-bottom: 8px; display: block; }
+    
+    .story-section { margin-bottom: 30px; }
+    .story-section p { margin-bottom: 15px; }
+    .story-section strong { background: linear-gradient(transparent 60%, #c1f3f8 60%); color: #111; }
+
+    .article-box a { color: #00c3d9; text-decoration: none; font-weight: 500; transition: color 0.3s; }
+    .article-box a:hover { color: #00a5b8; text-decoration: underline; }
+
+    .highlight-box { background-color: #282828; color: #fff; padding: 40px; margin-top: 60px; border-radius: 8px; text-align: center; }
+    .highlight-box h3 { color: #fff; font-size: 1.5rem; margin-bottom: 20px; }
+    .highlight-box p { color: #ddd; font-size: 1.1rem; line-height: 2; margin-bottom: 20px; text-align: left;}
+    .highlight-box strong { color: #00c3d9; font-weight: 700; }
+    .highlight-box small { color: #888; font-size: 0.85rem; display: block; margin-top: 20px; text-align: center; }
+
+    /* 言語切り替え用 CSS */
+    .en-text { display: none; }
+    body.en-mode .ja-text { display: none; }
+    body.en-mode .en-text { display: block; }
+
+    /* スマホ対応 */
+    @media (max-width: 768px) {
+      .top-bar { padding: 20px; flex-direction: column; align-items: flex-start; gap: 20px; }
+      .breadcrumb-nav { font-size: 0.9rem; flex-wrap: wrap; }
+      .main-content { padding-top: 5vh; padding-left: 5%; padding-right: 5%; }
+      .page-title { font-size: 3rem; }
+      .article-box { padding: 30px 20px; font-size: 0.95rem; }
+      .meta-list li { flex-direction: column; margin-bottom: 15px; }
+      .meta-label { width: 100%; margin-bottom: 5px; color: #888; font-size: 0.85rem;}
+      .heading-l { font-size: 1.4rem; }
+      .heading-m { font-size: 1.1rem; }
+      .highlight-box { padding: 30px 20px; }
+      .highlight-box p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ナビゲーションバー -->
+  <div class="top-bar">
+    <div class="breadcrumb-nav">
+      <a href="index.html">exhibition</a>
+      <span class="separator">/</span>
+      <a href="profile.html">profile</a>
+      <span class="separator">/</span>
+      <span class="current-page">portfolio</span>
+    </div>
+    
+    <div class="lang-switch-box" id="langToggleBtn">
+      🌐 <span id="currentLang">en</span> ⌄
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="main-content">
+    <div class="page-icon">📸</div>
+    <h1 class="page-title">portfolio</h1>
+    <div class="page-subtitle ja-text">福田 旭（Akira Fukuda）- 自己分析と価値観</div>
+    <div class="page-subtitle en-text">Akira Fukuda - Self-Analysis & Values</div>
+    
+    <article class="article-box">
+      
+      <!-- 日本語版 -->
+      <div class="ja-text">
+        <!-- 1. 基本情報 -->
+        <div class="profile-meta">
+          <h2>プロフィール・基本情報</h2>
+          <ul class="meta-list">
+            <li><span class="meta-label">名前</span><span class="meta-value">福田 旭（Fukuda Akira）</span></li>
+            <li><span class="meta-label">生年月日</span><span class="meta-value">2005年10月17日</span></li>
+            <!-- ★ 年度修正（2024年4月入学） ★ -->
+            <li><span class="meta-label">所属</span><span class="meta-value">大学3年生（2024年4月入学）</span></li>
+            <li><span class="meta-label">趣味・好きなもの</span><span class="meta-value">車、自転車、RedBullを飲むこと、カメラ</span></li>
+            <li><span class="meta-label">特技</span><span class="meta-value">電子機器の操作</span></li>
+            <li><span class="meta-label">苦手なもの</span><span class="meta-value">パプリカ</span></li>
+          </ul>
+        </div>
+
+        <!-- 2. コア・バリューと強み -->
+        <h2 class="heading-l">コア・バリュー（価値観）と強み</h2>
+        <ul class="core-value-list">
+          <li>
+            <span class="core-title">価値観</span>
+            「結果がすべて。それにいく道のりで影響を受けた時」や、「色々と行動して楽しいと感じた時」に強い幸福感（HAPPY）を感じる性格。
+          </li>
+          <li>
+            <span class="core-title">強み（VIA・強みテストより）</span>
+            誠実さ、真正性 / 注意、慎重さ、裁量 / 学習への愛
+          </li>
+          <li>
+            <span class="core-title">キャラクター・他者からの評価</span>
+            自分自身では「クール」「理論派」「正直者」と分析していますが、周囲からは「ツンデレ」「好きなことに真っ直ぐ」「なんだかんだ優しい」「話していて楽しい」と評される愛されキャラクターです。<br>
+            MBTIは「指揮官（ENTJ）」です。（<a href="https://www.16personalities.com/ja/entj型の性格" target="_blank" rel="noopener noreferrer">参考リンク</a>）
+          </li>
+        </ul>
+
+        <!-- 3. ライフストーリーと主要な実績 -->
+        <h2 class="heading-l">ライフストーリーと主要な実績</h2>
+        
+        <div class="story-section">
+          <h3 class="heading-m">幼少期〜中学生時代：リーダーシップと停滞からの学び</h3>
+          <p>小学校時代は代表委員や副代表委員を務め、「何でも出来た（成績優秀・運動も出来た）」という成功体験を積みました。中学校ではバドミントン部に所属し、精神的なタフさを培うものの、新型コロナウイルスの影響もあり、一時は成績不振に陥る苦しい時期も経験しました。</p>
+        </div>
+
+        <div class="story-section">
+          <h3 class="heading-m">高校時代：逆境からの飛躍と戦略的思考の開花</h3>
+          <p>人生の大きな転機となったのは高校時代です。都立高校に不合格となり推薦で私立高校へ入学しましたが、そこで同じ境遇の優秀な生徒たちに強く感化されました。小テストで友人に負けた悔しさをバネに「死ぬほど勉強できたのが嬉しかった」と振り返るほど学習にのめり込みます。</p>
+          <p>全体の評定を上げるため、苦手な古典を捨てて<strong>数学に全振りするという大胆な「選択と集中」の戦略</strong>を実行し、高校の最終評定を3.9から4.1（＋0.2）に引き上げ、上のクラスへのステップアップを果たしました。</p>
+        </div>
+
+        <div class="story-section">
+          <h3 class="heading-m">大学受験〜現在：分析力の実践</h3>
+          <p>高校時代に培った戦略的なアプローチを活かし、大学受験では一度もキャンパスに足を運ぶことなく、総合型選抜により9月中という早期に一発合格を勝ち取りました。現在は、高い志を持つ仲間に囲まれて良い影響を受けながら大学生活を送っています。</p>
+        </div>
+
+        <!-- 4. 実践的な対人スキルと精神的成長 -->
+        <h2 class="heading-l">実践的な対人スキルと精神的成長</h2>
+        <p><strong>冷静な分析力とコミュニケーション能力：</strong> 人間関係を「経験・勉強」の場として捉える俯瞰的な視点を持っています。<br>アルバイト先の先輩との駆け引きでは相手の心理を読み解き、メンヘラ気質な相手に対しても感情のコントロール術や「間欠強化（アメとムチ）」を実践的に活用するなど、冷静に主導権を握る高度な対人スキルを持ち合わせています。</p>
+
+        <!-- 5. 将来のビジョン -->
+        <h2 class="heading-l">将来のビジョン</h2>
+        <ul class="step-list" style="counter-reset: none; list-style: disc; padding-left: 20px;">
+          <li style="padding-left: 0; margin-bottom: 10px;">色々な人から慕われるような人材、頼られる先輩になること。</li>
+          <li style="padding-left: 0; margin-bottom: 10px;">たくさん会社で学び、一番行きたい就職先に就職すること。</li>
+          <li style="padding-left: 0; margin-bottom: 10px;">車や家など、一通りを手に入れること。</li>
+        </ul>
+
+        <!-- 総括 -->
+        <div class="highlight-box">
+          <h3 style="margin-top: 0;">総括</h3>
+          <p>私は、逆境や失敗をエネルギーに変える<strong>「転換力」</strong>と、目標から逆算して最適な行動を選ぶ<strong>「戦略的思考」</strong>を武器に成果を出し続ける人物です。</p>
+          <p>同時に、クールな論理的思考の裏に、他者へ真心を配る<strong>「誠実さ・優しさ」</strong>を併せ持つ点が最大の魅力です。</p>
+          <small>※現在の情報をあまり入れていない分析ですので、随時更新予定です。ご了承ください。</small>
+        </div>
+
+      </div>
+
+      <!-- 英語版 -->
+      <div class="en-text">
+        <!-- 1. 基本情報 -->
+        <div class="profile-meta">
+          <h2>Profile & Basic Information</h2>
+          <ul class="meta-list">
+            <li><span class="meta-label">Name</span><span class="meta-value">Akira Fukuda</span></li>
+            <li><span class="meta-label">Date of Birth</span><span class="meta-value">October 17, 2005</span></li>
+            <!-- ★ 年度修正 ★ -->
+            <li><span class="meta-label">Status</span><span class="meta-value">Junior in University (Admitted April 2024)</span></li>
+            <li><span class="meta-label">Interests</span><span class="meta-value">Cars, Bicycles, Drinking RedBull, Cameras</span></li>
+            <li><span class="meta-label">Skills</span><span class="meta-value">Operating electronic devices</span></li>
+            <li><span class="meta-label">Dislikes</span><span class="meta-value">Paprika</span></li>
+          </ul>
+        </div>
+
+        <!-- 2. コア・バリューと強み -->
+        <h2 class="heading-l">Core Values & Strengths</h2>
+        <ul class="core-value-list">
+          <li>
+            <span class="core-title">Values</span>
+            A personality that feels immense happiness when "results are everything, and being influenced along the journey," or when "taking action in various ways and finding it fun."
+          </li>
+          <li>
+            <span class="core-title">Strengths (from VIA Character Strengths Test)</span>
+            Honesty/Authenticity, Caution/Prudence, Love of Learning.
+          </li>
+          <li>
+            <span class="core-title">Character & Evaluation from Others</span>
+            Self-analysis: "Cool," "Logical," "Honest."<br>
+            Evaluation from others: A lovable character described as "Tsundere," "Straightforward with what he loves," "Kind after all," and "Fun to talk to."<br>
+            MBTI: Commander (ENTJ). (<a href="https://www.16personalities.com/ja/entj型の性格" target="_blank" rel="noopener noreferrer">Reference</a>)
+          </li>
+        </ul>
+
+        <!-- 3. ライフストーリーと主要な実績 -->
+        <h2 class="heading-l">Life Story & Major Achievements</h2>
+        
+        <div class="story-section">
+          <h3 class="heading-m">Childhood - Junior High: Leadership and Learning from Stagnation</h3>
+          <p>In elementary school, I served as a student representative and vice-representative, accumulating successful experiences of "being able to do anything" (excelling in both academics and sports). In junior high school, I joined the badminton club and cultivated mental toughness, but also experienced a difficult period of academic slump partly due to the impact of COVID-19.</p>
+        </div>
+
+        <div class="story-section">
+          <h3 class="heading-m">High School: Leaping from Adversity and Blooming Strategic Thinking</h3>
+          <p>High school was a major turning point in my life. After failing to get into a public high school, I entered a private high school on recommendation, where I was deeply inspired by excellent students in similar circumstances. The frustration of losing a quiz competition to a friend ignited my passion, and I immersed myself in studying to the point where I look back and say, "I was happy to be able to study to death."</p>
+          <p>To raise my overall GPA, I boldly executed a strategy of <strong>"Selection and Concentration,"</strong> abandoning my weak subject (Classical Japanese) to focus entirely on Mathematics. This successfully raised my final high school GPA from 3.9 to 4.1 (+0.2), achieving a step up to a higher-level class.</p>
+        </div>
+
+        <div class="story-section">
+          <h3 class="heading-m">University Admission - Present: Applying Analytical Skills</h3>
+          <p>Leveraging the strategic approach cultivated in high school, I secured a straight acceptance to university through a comprehensive selection process as early as September, without ever visiting the campus. Currently, I am enjoying university life while being positively influenced by peers with high aspirations.</p>
+        </div>
+
+        <!-- 4. 実践的な対人スキルと精神的成長 -->
+        <h2 class="heading-l">Practical Interpersonal Skills & Mental Growth</h2>
+        <p><strong>Calm Analytical and Communication Skills:</strong> I possess a bird's-eye view that perceives human relationships as a place for "experience and study."<br>In interactions with senior colleagues at my part-time job, I analyze their psychology. Even with individuals who are emotionally unstable, I practically utilize emotion control techniques and "intermittent reinforcement (carrot and stick)," demonstrating highly advanced interpersonal skills to calmly take the initiative.</p>
+
+        <!-- 5. 将来のビジョン -->
+        <h2 class="heading-l">Future Vision</h2>
+        <ul class="step-list" style="counter-reset: none; list-style: disc; padding-left: 20px;">
+          <li style="padding-left: 0; margin-bottom: 10px;">To become someone admired by many and a reliable senior figure.</li>
+          <li style="padding-left: 0; margin-bottom: 10px;">To learn extensively at various companies and secure a job at my most desired company.</li>
+          <li style="padding-left: 0; margin-bottom: 10px;">To acquire all the essentials, such as a car and a house.</li>
+        </ul>
+
+        <!-- 総括 -->
+        <div class="highlight-box">
+          <h3 style="margin-top: 0;">Summary</h3>
+          <p>I am an individual who consistently produces results armed with the <strong>"Ability to Transform"</strong> adversity and failure into energy, and <strong>"Strategic Thinking"</strong> that selects optimal actions by calculating backwards from goals.</p>
+          <p>At the same time, my greatest charm lies in possessing <strong>"Honesty and Kindness"</strong> that shows true consideration for others, lying beneath my cool, logical thinking.</p>
+          <small>* This analysis currently lacks some recent information and is subject to updates. Thank you for your understanding.</small>
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      /* === シンプルな言語切り替えスクリプト === */
+      const langBtn = document.getElementById('langToggleBtn');
+      const currentLangText = document.getElementById('currentLang');
+      const body = document.body;
+
+      langBtn.addEventListener('click', () => {
+        if (body.classList.contains('en-mode')) {
+          body.classList.remove('en-mode');
+          currentLangText.innerText = 'ja';
+        } else {
+          body.classList.add('en-mode');
+          currentLangText.innerText = 'en';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

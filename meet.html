@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akira Fukuda | meet</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========== ベース設定 ========== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: 'Helvetica Neue', 'Helvetica', 'Noto Serif JP', serif; 
+      background-color: #f7f7f7; 
+      color: #111; 
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ========== ナビゲーションバー ========== */
+    .top-bar { 
+      width: 100%; 
+      padding: 30px 40px; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+    }
+    
+    .breadcrumb-nav {
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      color: #999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .breadcrumb-nav a { color: #999; text-decoration: none; transition: color 0.3s; }
+    .breadcrumb-nav a:hover { color: #111; }
+    .breadcrumb-nav .separator { color: #ccc; font-weight: 300; }
+    .breadcrumb-nav .current-page { color: #111; font-weight: 500; }
+
+    .lang-switch-box {
+      display: flex; align-items: center; gap: 5px;
+      background-color: #eaeaea; padding: 8px 15px; border-radius: 20px;
+      font-size: 0.9rem; cursor: pointer; transition: background-color 0.3s;
+    }
+    .lang-switch-box:hover { background-color: #ddd; }
+
+    /* ========== メインコンテンツ ========== */
+    .main-content {
+      flex: 1; 
+      display: flex;
+      flex-direction: column;
+      padding-top: 15vh; /* 少し上からスタートさせる */
+      padding-left: 20%; 
+      padding-right: 20px;
+      padding-bottom: 15vh; 
+    }
+
+    .page-icon { font-size: 4rem; margin-bottom: 20px; }
+    .page-title { font-size: 4.5rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 30px; color: #000; }
+
+    /* ★ 追加：meetのテキスト部分 ★ */
+    .meet-desc {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #333;
+      max-width: 750px;
+      margin-bottom: 60px;
+      letter-spacing: 0.5px;
+    }
+    .meet-desc p { margin-bottom: 20px; }
+    .meet-desc small { font-size: 0.85rem; color: #888; display: block; margin-top: 10px; }
+
+    /* ★ 追加：連絡先情報（インフォメーション） ★ */
+    .profile-info-box {
+      background-color: #eaeaea;
+      padding: 40px;
+      text-align: left;
+      border-radius: 8px;
+      max-width: 750px;
+    }
+    .info-title { font-size: 1rem; font-weight: 500; color: #555; margin-bottom: 15px; }
+    .info-list { list-style: none; font-size: 0.95rem; color: #666; line-height: 2; }
+    .info-list li { margin-bottom: 5px; }
+    .info-list a { color: #00c3d9; text-decoration: none; transition: color 0.3s; }
+    .info-list a:hover { color: #00a5b8; }
+    
+    /* LINE専用の特別カラー（オプション） */
+    .line-link { color: #06c755 !important; font-weight: 500; }
+    .line-link:hover { color: #05a746 !important; }
+
+    /* ========== 言語切り替え用 CSS ========== */
+    .en-text { display: none; }
+    body.en-mode .ja-text { display: none; }
+    body.en-mode .en-text { display: block; }
+
+    /* ========== スマホ対応 ========== */
+    @media (max-width: 768px) {
+      .top-bar { padding: 20px; flex-direction: column; align-items: flex-start; gap: 20px; }
+      .breadcrumb-nav { font-size: 0.9rem; flex-wrap: wrap; }
+      .main-content { padding-top: 5vh; padding-left: 5%; padding-right: 5%; }
+      .page-title { font-size: 3rem; }
+      .profile-info-box { padding: 25px 20px; }
+      .meet-desc { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ナビゲーションバー -->
+  <div class="top-bar">
+    <div class="breadcrumb-nav">
+      <a href="index.html">exhibition</a>
+      <span class="separator">/</span>
+      <a href="profile.html">profile</a>
+      <span class="separator">/</span>
+      <span class="current-page">meet</span>
+    </div>
+    
+    <div class="lang-switch-box" id="langToggleBtn">
+      🌐 <span id="currentLang">en</span> ⌄
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="main-content">
+    <div class="page-icon">🍵</div>
+    <h1 class="page-title">meet</h1>
+    
+    <!-- ★ 文章部分 ★ -->
+    <div class="meet-desc">
+      <!-- 日本語版 -->
+      <div class="ja-text">
+        <p>会う場所は東京で予定が合えば基本的にどこでも行きます！<br>
+        また、立川まで来て頂けると会える可能性はとても上がります！（私合わせて３人以下であればお酒の飲みでも大歓迎！！）</p>
+        
+        <p>その他、Zoom、Google meetなどのオンラインミーティングの場合はURLと時間さえ言っていただければ、すぐ参加させていただきます。</p>
+        
+        <small>※これら全て事前にご連絡を頂いた上で判断させて頂きます。ご了承ください。</small>
+      </div>
+
+      <!-- 英語版 -->
+      <div class="en-text">
+        <p>I can basically meet anywhere in Tokyo if our schedules match!<br>
+        Additionally, the chances of us meeting will increase significantly if you can come to Tachikawa! (If it's a group of 3 or fewer including myself, going out for drinks is also very welcome!!)</p>
+        
+        <p>For online meetings via Zoom, Google Meet, or other platforms, just let me know the URL and time, and I will join promptly.</p>
+        
+        <small>* Please note that all arrangements are subject to my confirmation after receiving your prior contact. Thank you for your understanding.</small>
+      </div>
+    </div>
+
+    <!-- ★ 連絡先情報（meet.html 限定で LINE リンクを追加） ★ -->
+    <div class="profile-info-box">
+      <div class="info-title ja-text">Akira Fukuda 連絡先・情報</div>
+      <div class="info-title en-text">Akira Fukuda Information</div>
+      
+      <!-- 日本語リスト -->
+      <ul class="info-list ja-text">
+        <li>・活動拠点：東京都</li>
+        <li>・所属：武蔵野大学 アントレプレナーシップ学部</li>
+        <li>・電話番号：<a href="tel:07038824072">070-3882-4072</a></li>
+        <li>・連絡先メールアドレス：<a href="mailto:akirafukuda865@gmail.com">akirafukuda865@gmail.com</a></li>
+        <li>・SNS：<a href="https://x.com/AFGToffical" target="_blank" rel="noopener noreferrer">X (@AFGToffical)</a> / <a href="https://www.instagram.com/akirafukuda_offical/" target="_blank" rel="noopener noreferrer">Instagram (@akirafukuda_offical)</a></li>
+        <!-- ★ LINE追加 ★ -->
+        <li>・LINE：<a href="https://line.me/ti/p/2mf0V9MZHL" target="_blank" rel="noopener noreferrer" class="line-link">友達追加・ご連絡はこちら</a></li>
+      </ul>
+
+      <!-- 英語リスト -->
+      <ul class="info-list en-text">
+        <li>- Based in: Tokyo, Japan</li>
+        <li>- Affiliation: Musashino University, Faculty of Entrepreneurship</li>
+        <li>- Phone: <a href="tel:07038824072">070-3882-4072</a></li>
+        <li>- Contact Email: <a href="mailto:akirafukuda865@gmail.com">akirafukuda865@gmail.com</a></li>
+        <li>- SNS: <a href="https://x.com/AFGToffical" target="_blank" rel="noopener noreferrer">X (@AFGToffical)</a> / <a href="https://www.instagram.com/akirafukuda_offical/" target="_blank" rel="noopener noreferrer">Instagram (@akirafukuda_offical)</a></li>
+        <!-- ★ LINE追加 ★ -->
+        <li>- LINE: <a href="https://line.me/ti/p/2mf0V9MZHL" target="_blank" rel="noopener noreferrer" class="line-link">Add as Friend / Contact Me</a></li>
+      </ul>
+    </div>
+
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      /* === シンプルな言語切り替えスクリプト === */
+      const langBtn = document.getElementById('langToggleBtn');
+      const currentLangText = document.getElementById('currentLang');
+      const body = document.body;
+
+      langBtn.addEventListener('click', () => {
+        if (body.classList.contains('en-mode')) {
+          body.classList.remove('en-mode');
+          currentLangText.innerText = 'ja';
+        } else {
+          body.classList.add('en-mode');
+          currentLangText.innerText = 'en';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

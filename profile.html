@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akira Fukuda profile</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========== ベース設定 ========== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', 'Helvetica', 'Noto Serif JP', serif; background-color: #fcfcfc; color: #111; overflow-x: hidden; }
+
+    /* ========== ナビゲーションバー ========== */
+    .top-bar { position: fixed; top: 0; left: 0; width: 100%; padding: 30px 40px; display: flex; justify-content: space-between; align-items: center; z-index: 100; pointer-events: none; }
+    .interactive { pointer-events: auto; }
+    .logo-link { display: inline-flex; align-items: center; text-decoration: none; }
+    .main-logo { height: 24px; width: auto; object-fit: contain; }
+
+    .lang-switch { display: flex; align-items: center; font-size: 0.85rem; letter-spacing: 1px; }
+    .lang-btn { cursor: pointer; padding: 3px 10px; border-radius: 20px; transition: all 0.3s ease; color: #888; }
+    .lang-btn.active { background-color: #00c3d9; color: #fff; }
+    .lang-btn:hover:not(.active) { color: #111; }
+
+    .nav-toggle { display: flex; background: #fff; border: 1px solid #ddd; border-radius: 30px; padding: 5px; font-size: 0.8rem; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+    .nav-toggle a { padding: 5px 15px; border-radius: 20px; cursor: pointer; text-decoration: none; color: #111; transition: all 0.3s; }
+    .nav-toggle a:hover { opacity: 0.7; }
+    .nav-toggle a.active { border: 1px solid #ccc; background: #f9f9f9; pointer-events: none; }
+
+    /* ========== 1. ヒーロー ========== */
+    .profile-hero { position: relative; width: 100vw; height: 70vh; background-image: url('images/profile-hero.jpg'); background-size: cover; background-position: center; clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%); margin-bottom: 50px; }
+    .profile-hero::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.15); }
+    .hero-text-box { position: absolute; right: 10%; bottom: 30%; z-index: 2; color: #ffffff; text-align: right; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+    .hero-catchphrase { font-size: 1rem; letter-spacing: 2px; margin-bottom: 10px; font-weight: 500; }
+    .hero-main-title { font-size: 3.5rem; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-weight: bold; letter-spacing: -1px; margin-bottom: 15px; }
+    .hero-sub { font-size: 0.9rem; font-weight: 500; line-height: 1.6; letter-spacing: 1px; }
+
+    /* ========== 2. コンテンツエリア ========== */
+    .profile-content { max-width: 800px; margin: 0 auto; padding: 0 20px 100px; text-align: center; }
+    .breadcrumb { font-size: 0.85rem; color: #999; letter-spacing: 1px; margin-bottom: 40px; text-align: left; }
+    .breadcrumb a { color: #999; text-decoration: none; transition: color 0.3s; }
+    .breadcrumb a:hover { color: #111; }
+    .profile-title { font-size: 1.8rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 50px; color: #222; }
+    
+    .profile-main-image { width: 100%; height: auto; margin-bottom: 80px; }
+    .profile-main-image img { width: 100%; height: auto; object-fit: cover; border-radius: 4px; }
+
+    /* ========== 3. タイムライン ========== */
+    .timeline-wrapper { position: relative; max-width: 800px; margin: 0 auto; padding: 40px 0; }
+    .timeline-wrapper::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 2px; height: 100%; background-color: #ddd; }
+    .timeline-item { position: relative; width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 60px; opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .timeline-item.is-visible { opacity: 1; transform: translateY(0); }
+    .timeline-dot { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 16px; height: 16px; background-color: #00c3d9; border: 3px solid #fff; border-radius: 50%; z-index: 2; }
+    .timeline-date { width: 45%; font-size: 0.9rem; font-weight: bold; color: #666; letter-spacing: 1px; }
+    .timeline-item:nth-child(even) .timeline-date { text-align: right; padding-right: 30px; }
+    .timeline-item:nth-child(odd) .timeline-date { text-align: left; padding-left: 30px; order: 2; }
+    .timeline-content { position: relative; width: 45%; background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee; }
+    .timeline-item:nth-child(even) .timeline-content { order: 2; }
+    .timeline-item:nth-child(even) .timeline-content::before { content: ''; position: absolute; top: 50%; left: -10px; transform: translateY(-50%); border-width: 10px 10px 10px 0; border-style: solid; border-color: transparent #fff transparent transparent; }
+    .timeline-item:nth-child(odd) .timeline-content::before { content: ''; position: absolute; top: 50%; right: -10px; transform: translateY(-50%); border-width: 10px 0 10px 10px; border-style: solid; border-color: transparent transparent transparent #fff; }
+    .content-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: #222; }
+    .content-desc { font-size: 0.95rem; line-height: 1.6; color: #666; }
+
+    /* ========== Meet セクション ========== */
+    .profile-meet-section { margin-top: 100px; padding: 60px 40px; background-color: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); text-align: center; }
+    .profile-meet-title { font-size: 2rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; }
+    .profile-meet-desc { font-size: 1rem; color: #555; line-height: 1.8; margin-bottom: 40px; }
+    
+    .kyu-merge-btn { position: relative; display: inline-flex; align-items: center; text-decoration: none; height: 46px; }
+    .btn-text { display: inline-flex; align-items: center; height: 100%; padding: 0 30px; background-color: #00c3d9; color: #fff; border-radius: 23px; font-size: 0.9rem; font-weight: 500; letter-spacing: 1px; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    .btn-icon { position: absolute; top: 0; right: -56px; width: 46px; height: 46px; background-color: #00c3d9; color: #fff; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    .arrow-icon { transform: none; font-weight: 300; } 
+    .kyu-merge-btn:hover .btn-text { padding-right: 56px; background-color: #00a5b8; }
+    .kyu-merge-btn:hover .btn-icon { right: 0; background-color: transparent; }
+
+    /* ========== 4. インフォメーション ========== */
+    .profile-info-box { background-color: #f2f2f2; padding: 40px; margin-top: 50px; text-align: left; border-radius: 4px; }
+    .info-title { font-size: 1rem; font-weight: 500; color: #555; margin-bottom: 15px; }
+    .info-list { list-style: none; font-size: 0.95rem; color: #666; line-height: 2; }
+    .info-list li { margin-bottom: 5px; }
+    .info-list a { color: #00c3d9; text-decoration: none; transition: color 0.3s; }
+    .info-list a:hover { color: #00a5b8; }
+    .profile-dates { margin-top: 40px; text-align: left; font-size: 0.9rem; color: #999; line-height: 2; font-family: monospace; letter-spacing: 1px; }
+    .profile-dates span { display: inline-block; width: 100px; font-family: 'Helvetica Neue', 'Helvetica', 'Noto Serif JP', serif; }
+
+    /* ========== 5. Footer ========== */
+    .footer-section { padding: 80px 0; background-color: #fcfcfc; text-align: center; margin-top: 100px; border-top: 1px solid #ddd; }
+    .footer-card { width: 95%; max-width: 1400px; margin: 0 auto; background-color: #0a192f; border-radius: 25px; color: #fff; padding: 60px 80px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .footer-logo { display: inline-flex; height: 80px; width: auto; text-decoration: none; }
+    .footer-logo img { height: 100%; width: auto; object-fit: contain; }
+    .footer-links { display: flex; gap: 100px; font-size: 0.95rem; font-weight: 300; letter-spacing: 1px; line-height: 2; }
+    .link-col { display: flex; flex-direction: column; gap: 5px; }
+    .link-col a { color: #9ab; text-decoration: none; transition: color 0.3s; }
+    .link-col a:hover { color: #fff; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 60px; }
+    .sns-buttons { display: flex; gap: 15px; }
+    .sns-buttons a { display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 32px; border: 1px solid #4a5a6a; border-radius: 16px; color: #9ab; text-decoration: none; font-size: 0.85rem; letter-spacing: 1px; transition: all 0.3s; }
+    .sns-buttons a:hover { background-color: #fff; color: #0a192f; border-color: #fff; }
+    .footer-copy { font-size: 0.8rem; color: #6a7a8a; letter-spacing: 1px; font-weight: 300; }
+
+    /* 言語切り替え用 CSS */
+    .en-text { display: none; }
+    body.en-mode .ja-text { display: none; }
+    body.en-mode .en-text { display: block; }
+
+    /* スマホ対応 */
+    @media (max-width: 768px) {
+      .profile-hero { height: 50vh; clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); }
+      .hero-text-box { right: 5%; bottom: 20%; }
+      .hero-main-title { font-size: 2.5rem; }
+      .profile-title { font-size: 1.5rem; }
+      .timeline-wrapper::before { left: 20px; }
+      .timeline-item { flex-direction: column; align-items: flex-start; margin-bottom: 40px; padding-left: 50px; }
+      .timeline-dot { left: 20px; }
+      .timeline-date { width: 100%; text-align: left !important; padding: 0 !important; margin-bottom: 10px; order: 1 !important; }
+      .timeline-content { width: 100%; order: 2 !important; }
+      .timeline-item:nth-child(odd) .timeline-content::before,
+      .timeline-item:nth-child(even) .timeline-content::before { left: -10px; right: auto; border-width: 10px 10px 10px 0; border-color: transparent #fff transparent transparent; }
+      
+      .footer-card { padding: 40px 30px; border-radius: 20px; }
+      .footer-top { flex-direction: column; gap: 40px; }
+      .footer-logo { height: 50px; }
+      .footer-links { gap: 40px; font-size: 0.85rem; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; gap: 30px; margin-top: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ナビゲーション -->
+  <div class="top-bar">
+    <a href="index.html" class="logo-link interactive">
+      <img src="images/logo.png" alt="My Logo" class="main-logo" onerror="this.style.display='none'">
+    </a>
+    <div class="lang-switch interactive">
+      <span id="btn-en" class="lang-btn">en</span>
+      <span id="btn-ja" class="lang-btn active">ja</span>
+    </div>
+    <div class="nav-toggle interactive">
+      <a href="index.html">exhibition</a>
+      <a href="profile.html" class="active">profile</a>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="profile-hero">
+    <div class="hero-text-box">
+      <div class="hero-catchphrase ja-text">映像と写真の追求</div>
+      <div class="hero-catchphrase en-text">Pursuit of Video & Photo</div>
+      <div class="hero-main-title">Akira Fukuda</div>
+      <div class="hero-sub">
+        Visual Director<br>
+        Editor<br>
+        Photographer
+      </div>
+    </div>
+  </section>
+
+  <!-- コンテンツ -->
+  <section class="profile-content">
+    <div class="breadcrumb">
+      <a href="index.html">exhibition</a> &gt; profile
+    </div>
+
+    <h1 class="profile-title ja-text">Akira Fukuda - プロフィール</h1>
+    <h1 class="profile-title en-text">Akira Fukuda - Profile</h1>
+
+    <div class="profile-main-image">
+      <img src="images/profile-main.jpg" alt="Akira Fukuda Profile">
+    </div>
+
+    <!-- タイムライン -->
+    <div class="timeline-wrapper">
+      <div class="timeline-item fade-in-element">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">Oct 17 2005</div>
+        <div class="timeline-content">
+          <div class="content-title ja-text">東京都新宿区出身</div>
+          <div class="content-title en-text">Born in Shinjuku, Tokyo</div>
+          <div class="content-desc ja-text">大都会の新宿区にて爆誕。</div>
+          <div class="content-desc en-text">Born in the metropolis of Shinjuku.</div>
+        </div>
+      </div>
+      <div class="timeline-item fade-in-element">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">2012 - 2018</div>
+        <div class="timeline-content">
+          <div class="content-title ja-text">立川市立第四小学校へ</div>
+          <div class="content-title en-text">Entered Tachikawa 4th Elementary School</div>
+          <div class="content-desc ja-text">4年生から6年生まで代表委員をやっていくうちにリーダーシップの興味と能力発揮。</div>
+          <div class="content-desc en-text">Developed an interest in leadership and demonstrated my abilities while serving as a student representative from 4th to 6th grade.</div>
+        </div>
+      </div>
+      <div class="timeline-item fade-in-element">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">2018 - 2021</div>
+        <div class="timeline-content">
+          <div class="content-title ja-text">立川市立立川第一中学校へ</div>
+          <div class="content-title en-text">Entered Tachikawa 1st Junior High School</div>
+          <div class="content-desc ja-text">バドミントン部に入部。</div>
+          <div class="content-desc en-text">Joined the badminton club.</div>
+        </div>
+      </div>
+      <div class="timeline-item fade-in-element">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">2021 - 2024</div>
+        <div class="timeline-content">
+          <div class="content-title ja-text">八王子実践高等学校へ</div>
+          <div class="content-title en-text">Entered Hachioji Jissen High School</div>
+          <div class="content-desc ja-text">人生の大きな転換期。<br>都立に落ちて「高い志を持つ優秀な生徒」が多く、彼らに強く感化された。友人との小テスト勝負に負けた悔しさをバネに闘争心に火がつき、高校の最終評定を3.9から4.1へ（＋0.2）上昇させ、一つ上のクラスへのステップアップを見事に果たしました。</div>
+          <div class="content-desc en-text">A major turning point in my life.<br>After failing to enter a public high school, I was deeply inspired by many "excellent students with high aspirations" here. The frustration of losing a quiz competition to a friend ignited my competitive spirit. I successfully raised my final GPA from 3.9 to 4.1 (+0.2), brilliantly achieving a step up to a higher-level class.</div>
+        </div>
+      </div>
+      <div class="timeline-item fade-in-element">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">2024 - Present</div>
+        <div class="timeline-content">
+          <div class="content-title ja-text">武蔵野大学 アントレプレナーシップ学部<br>アントレプレナーシップ学科へ</div>
+          <div class="content-title en-text">Entered Musashino University,<br>Faculty of Entrepreneurship</div>
+          <div class="content-desc ja-text">高校時代の戦略的アプローチは大学受験でも発揮され、一度もキャンパスに足を運ぶことなく、総合型選抜を利用して9月中という早期に一発合格を勝ち取る。<br><br>また、プロジェクトでECコースに所属し、AIを駆使して、画像のデザイン、論理的な考え方で、アプローチをしている。さらに、友達のプロジェクトに動画編集と論理的な分析をしている。</div>
+          <div class="content-desc en-text">My strategic approach from high school also paid off in university admissions. Without ever visiting the campus, I secured a straight acceptance as early as September through a comprehensive selection process.<br><br>Additionally, I belong to the EC course in my project work, taking approaches using AI, image design, and logical thinking. Furthermore, I contribute to my friends' projects by providing video editing and logical analysis.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meet セクションへの導線 -->
+    <div class="profile-meet-section fade-in-element">
+      <h2 class="profile-meet-title">meet</h2>
+      <div class="profile-meet-desc ja-text">
+        撮影の仕方、気にするポイント、編集について直接対話を通じて共有します。<br>
+        論理と情緒に向き合う時間を、一緒にお茶を楽しみながら過ごしましょう。
+      </div>
+      <div class="profile-meet-desc en-text">
+        I will share my thoughts on shooting techniques, key perspectives, and editing through direct dialogue.<br>
+        Let's spend a moment facing logic and emotion while enjoying a cup of tea together.
+      </div>
+      <a href="meet.html" class="kyu-merge-btn"><span class="btn-text">view more</span><span class="btn-icon"><span class="arrow-icon">↪︎</span></span></a>
+    </div>
+
+    <!-- インフォメーション -->
+    <div class="profile-info-box fade-in-element">
+      <div class="info-title ja-text">Akira Fukuda 連絡先・情報</div>
+      <div class="info-title en-text">Akira Fukuda Information</div>
+      <ul class="info-list ja-text">
+        <li>・活動拠点：東京都</li>
+        <li>・所属：武蔵野大学 アントレプレナーシップ学部</li>
+        <li>・電話番号：<a href="tel:07038824072">070-3882-4072</a></li>
+        <li>・連絡先メールアドレス：<a href="mailto:akirafukuda865@gmail.com">akirafukuda865@gmail.com</a></li>
+        <li>・SNS：<a href="https://x.com/AFGToffical" target="_blank" rel="noopener noreferrer">X (@AFGToffical)</a> / <a href="https://www.instagram.com/akirafukuda_offical/" target="_blank" rel="noopener noreferrer">Instagram (@akirafukuda_offical)</a></li>
+      </ul>
+      <ul class="info-list en-text">
+        <li>- Based in: Tokyo, Japan</li>
+        <li>- Affiliation: Musashino University, Faculty of Entrepreneurship</li>
+        <li>- Phone: <a href="tel:07038824072">070-3882-4072</a></li>
+        <li>- Contact Email: <a href="mailto:akirafukuda865@gmail.com">akirafukuda865@gmail.com</a></li>
+        <li>- SNS: <a href="https://x.com/AFGToffical" target="_blank" rel="noopener noreferrer">X (@AFGToffical)</a> / <a href="https://www.instagram.com/akirafukuda_offical/" target="_blank" rel="noopener noreferrer">Instagram (@akirafukuda_offical)</a></li>
+      </ul>
+    </div>
+    
+    <!-- ★ 公開日・最終更新日を 2026/05/24 に変更 ★ -->
+    <div class="profile-dates fade-in-element">
+      <div class="ja-text"><span>公開日：</span> 2026/05/24</div>
+      <div class="ja-text"><span>最終更新日：</span> 2026/05/24</div>
+      <div class="en-text"><span>Published：</span> 2026/05/24</div>
+      <div class="en-text"><span>Updated：</span> 2026/05/24</div>
+    </div>
+
+  </section>
+
+  <!-- 共通 Footer -->
+  <section class="footer-section">
+    <div class="footer-card">
+      <div class="footer-top">
+        <a href="index.html" class="footer-logo">
+          <img src="images/logo.png" alt="My Logo" onerror="this.style.display='none'">
+        </a>
+        <div class="footer-links">
+          <div class="link-col">
+            <a href="index.html">exhibition</a>
+            <a href="profile.html">profile</a>
+          </div>
+          <div class="link-col">
+            <a href="memo.html">memo</a>
+            <a href="meet.html">meet</a>
+            <a href="team.html">team</a>
+            <a href="portfolio.html">portfolio</a>
+            <a href="contacts.html">contacts</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="sns-buttons">
+          <a href="https://x.com/AFGToffical" target="_blank" rel="noopener noreferrer">X</a>
+          <a href="https://www.instagram.com/akirafukuda_offical/" target="_blank" rel="noopener noreferrer">Ig</a>
+        </div>
+        <div class="footer-copy">©Akira 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      /* 言語切り替えスクリプト */
+      const btnEn = document.getElementById('btn-en');
+      const btnJa = document.getElementById('btn-ja');
+      const body = document.body;
+
+      btnEn.addEventListener('click', () => { body.classList.add('en-mode'); btnEn.classList.add('active'); btnJa.classList.remove('active'); });
+      btnJa.addEventListener('click', () => { body.classList.remove('en-mode'); btnJa.classList.add('active'); btnEn.classList.remove('active'); });
+
+      /* スクロール出現アニメーション */
+      const fadeElements = document.querySelectorAll('.fade-in-element');
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2, rootMargin: "0px 0px -50px 0px" });
+      fadeElements.forEach(el => observer.observe(el));
+    });
+  </script>
+</body>
+</html>

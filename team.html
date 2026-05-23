@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akira Fukuda | team</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========== ベース設定 ========== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', 'Helvetica', 'Noto Serif JP', serif; background-color: #f7f7f7; color: #111; min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* ========== ナビゲーションバー ========== */
+    .top-bar { width: 100%; padding: 30px 40px; display: flex; justify-content: space-between; align-items: center; }
+    .breadcrumb-nav { font-size: 1.1rem; letter-spacing: 1px; color: #999; display: flex; align-items: center; gap: 10px; }
+    .breadcrumb-nav a { color: #999; text-decoration: none; transition: color 0.3s; }
+    .breadcrumb-nav a:hover { color: #111; }
+    .breadcrumb-nav .separator { color: #ccc; font-weight: 300; }
+    .breadcrumb-nav .current-page { color: #111; font-weight: 500; }
+
+    .lang-switch-box { display: flex; align-items: center; gap: 5px; background-color: #eaeaea; padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; cursor: pointer; transition: background-color 0.3s; }
+    .lang-switch-box:hover { background-color: #ddd; }
+
+    /* ========== メインコンテンツ ========== */
+    .main-content { flex: 1; display: flex; flex-direction: column; padding-top: 10vh; padding-left: 15%; padding-right: 15%; padding-bottom: 15vh; max-width: 1400px; margin: 0 auto; }
+    .page-icon { font-size: 4rem; margin-bottom: 20px; }
+    .page-title { font-size: 4rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 10px; color: #000; }
+    .page-subtitle { font-size: 1.2rem; color: #666; margin-bottom: 60px; letter-spacing: 1px; }
+
+    .article-box { background-color: #fff; padding: 60px 80px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); line-height: 1.9; color: #333; font-size: 1.05rem; }
+    .article-box p { margin-bottom: 20px; }
+    .article-box strong { color: #000; font-weight: 700; }
+
+    /* 見出し */
+    .heading-l { font-size: 1.6rem; font-weight: 700; color: #111; margin-top: 50px; margin-bottom: 20px; border-bottom: 2px solid #eaeaea; padding-bottom: 10px; }
+    .heading-m { font-size: 1.3rem; font-weight: 700; color: #111; margin-top: 40px; margin-bottom: 15px; }
+
+    /* ========== 商品ショーケース ========== */
+    .product-showcase {
+      margin-bottom: 60px;
+      padding-bottom: 40px;
+      border-bottom: 2px dashed #eee;
+    }
+    
+    .showcase-header {
+      display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; flex-wrap: wrap; gap: 20px;
+    }
+    
+    /* ★ 追加：ボタンを並べるコンテナ ★ */
+    .showcase-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .shop-link-btn {
+      display: inline-flex; align-items: center; padding: 10px 25px; background-color: #222; color: #fff; text-decoration: none; border-radius: 30px; font-size: 0.9rem; font-weight: 500; letter-spacing: 1px; transition: background-color 0.3s;
+    }
+    .shop-link-btn:hover { background-color: #555; }
+    
+    /* ★ 追加：Instagramボタン用の少し違うデザイン ★ */
+    .ig-link-btn {
+      background-color: #fff;
+      color: #222;
+      border: 1px solid #222;
+    }
+    .ig-link-btn:hover {
+      background-color: #222;
+      color: #fff;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      display: block; text-decoration: none; color: inherit; background-color: #f9f9f9; border-radius: 8px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .product-card:hover {
+      transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    
+    .product-img-wrapper {
+      width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background-color: #eaeaea;
+    }
+    .product-img-wrapper img {
+      width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;
+    }
+    .product-card:hover .product-img-wrapper img { transform: scale(1.05); }
+
+    .product-info { padding: 20px; text-align: center; }
+    .product-name { font-size: 0.95rem; font-weight: 700; margin-bottom: 15px; line-height: 1.4; color: #111; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 2.8em; }
+    
+    .amazon-btn {
+      display: inline-block; padding: 8px 0; width: 100%; border: 1px solid #ddd; border-radius: 4px; font-size: 0.8rem; font-weight: 500; color: #555; transition: all 0.3s;
+    }
+    .product-card:hover .amazon-btn { background-color: #ff9900; border-color: #ff9900; color: #fff; }
+
+    /* ステップリスト */
+    .step-list { margin-top: 20px; margin-bottom: 40px; padding-left: 0; list-style: none; counter-reset: step-counter; }
+    .step-list li { position: relative; padding-left: 50px; margin-bottom: 30px; }
+    .step-list li::before { counter-increment: step-counter; content: counter(step-counter); position: absolute; left: 0; top: 2px; width: 32px; height: 32px; background-color: #00c3d9; color: #fff; font-weight: 700; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1rem; }
+    .step-title { display: block; font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 5px; }
+
+    /* ハイライトボックス */
+    .highlight-box { background-color: #f0fbfc; border-left: 4px solid #00c3d9; padding: 25px 30px; margin-top: 50px; border-radius: 0 8px 8px 0; }
+    .highlight-box p:last-child { margin-bottom: 0; }
+
+    /* 言語切り替え用 CSS */
+    .en-text { display: none; }
+    body.en-mode .ja-text { display: none; }
+    body.en-mode .en-text { display: block; }
+
+    /* スマホ対応 */
+    @media (max-width: 768px) {
+      .top-bar { padding: 20px; flex-direction: column; align-items: flex-start; gap: 20px; }
+      .breadcrumb-nav { font-size: 0.9rem; flex-wrap: wrap; }
+      .main-content { padding-top: 5vh; padding-left: 5%; padding-right: 5%; }
+      .page-title { font-size: 3rem; }
+      .article-box { padding: 30px 20px; font-size: 0.95rem; }
+      .heading-l { font-size: 1.4rem; }
+      .heading-m { font-size: 1.2rem; }
+      .step-list li { padding-left: 45px; }
+      .highlight-box { padding: 20px; margin-top: 40px; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .product-info { padding: 15px 10px; }
+      .product-name { font-size: 0.85rem; }
+      .showcase-actions { width: 100%; }
+      .showcase-actions .shop-link-btn { flex: 1; justify-content: center; } /* スマホではボタンを横幅いっぱいに */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ナビゲーションバー -->
+  <div class="top-bar">
+    <div class="breadcrumb-nav">
+      <a href="index.html">exhibition</a>
+      <span class="separator">/</span>
+      <a href="profile.html">profile</a>
+      <span class="separator">/</span>
+      <span class="current-page">team</span>
+    </div>
+    
+    <div class="lang-switch-box" id="langToggleBtn">
+      🌐 <span id="currentLang">en</span> ⌄
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="main-content">
+    <div class="page-icon">🤝</div>
+    <h1 class="page-title">team</h1>
+    <div class="page-subtitle ja-text">EC course - プロジェクト活動について</div>
+    <div class="page-subtitle en-text">EC course - About Project Activities</div>
+    
+    <article class="article-box">
+      
+      <!-- 商品ショーケース -->
+      <div class="product-showcase">
+        <div class="showcase-header">
+          <div>
+            <h2 class="heading-l" style="margin-top: 0; border: none; padding-bottom: 0;">Our Products - NONORU</h2>
+            <p class="ja-text" style="color: #666; font-size: 0.95rem; margin-top: 5px;">私たちがマーケティングや画像改善を手がける「NONORU」の商品一覧です。</p>
+            <p class="en-text" style="color: #666; font-size: 0.95rem; margin-top: 5px;">These are the products from "NONORU", a brand we manage and improve.</p>
+          </div>
+          
+          <!-- ★ ボタン群（InstagramとOfficial Shop） ★ -->
+          <div class="showcase-actions">
+            <a href="https://www.instagram.com/nonoru_store/" target="_blank" rel="noopener noreferrer" class="shop-link-btn ig-link-btn">
+              Instagram
+            </a>
+            <a href="https://www.amazon.co.jp/stores/ノノル公式ショップ/page/47ABD54F-C51E-4696-8E39-C2BE434AED0D?lp_asin=B0F8474L63&ref_=ast_bln&store_ref=bl_ast_dp_brandlogo_sto" target="_blank" rel="noopener noreferrer" class="shop-link-btn">
+              Official Shop →
+            </a>
+          </div>
+          
+        </div>
+
+        <div class="product-grid">
+          <!-- 商品1: ツインブラシ -->
+          <a href="https://www.amazon.co.jp/【現役美容師監修】-ツインブラシ-BRUSH-ブローブラシ-nonoru/dp/B0B9N2N1CZ/ref=lp_26286483051_1_1?pf_rd_p=04a09edd-da51-4757-a034-f654f3da9d84&pf_rd_r=7F8A54SDX5KTN0970CR5&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D" target="_blank" rel="noopener noreferrer" class="product-card">
+            <div class="product-img-wrapper">
+              <img src="images/product-twinbrush.jpg" alt="ツインブラシ" onerror="this.src='https://picsum.photos/400/400?random=21'">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">【現役美容師監修】ツインブラシ BRUSH</h3>
+              <span class="amazon-btn">Amazonで見る</span>
+            </div>
+          </a>
+
+          <!-- 商品2: お香立て -->
+          <a href="https://www.amazon.co.jp/nonoru-【自社開発】ガラス転倒防止-灰がこぼれない-水洗いOK-インテリア/dp/B0DX25D7KV/ref=lp_26286483051_1_2?pf_rd_p=04a09edd-da51-4757-a034-f654f3da9d84&pf_rd_r=7F8A54SDX5KTN0970CR5&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D" target="_blank" rel="noopener noreferrer" class="product-card">
+            <div class="product-img-wrapper">
+              <img src="images/product-incense.jpg" alt="お香立て" onerror="this.src='https://picsum.photos/400/400?random=22'">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">【自社開発】お香立て ガラス転倒防止</h3>
+              <span class="amazon-btn">Amazonで見る</span>
+            </div>
+          </a>
+
+          <!-- 商品3: ドライブラシ -->
+          <a href="https://www.amazon.co.jp/ヘアブラシ-ドライブラシ-レディース-ナイロン-nonoru/dp/B0C5LSVTX6/ref=lp_26286483051_1_4?pf_rd_p=04a09edd-da51-4757-a034-f654f3da9d84&pf_rd_r=41SGYKA2DZC330JH25Z6&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D" target="_blank" rel="noopener noreferrer" class="product-card">
+            <div class="product-img-wrapper">
+              <img src="images/product-drybrush.jpg" alt="ドライブラシ" onerror="this.src='https://picsum.photos/400/400?random=23'">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">ヘアブラシ ドライブラシ レディース</h3>
+              <span class="amazon-btn">Amazonで見る</span>
+            </div>
+          </a>
+
+          <!-- 商品4: スカルプブラシ -->
+          <a href="https://www.amazon.co.jp/【nonoru公式】スカルプブラシ-シャンプーブラシ-頭皮マッサージ-プレゼント用-小さい手でも使いやすい（ベージュ）/dp/B0F8474L63/ref=lp_26286483051_1_7?pf_rd_p=04a09edd-da51-4757-a034-f654f3da9d84&pf_rd_r=41SGYKA2DZC330JH25Z6&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&th=1" target="_blank" rel="noopener noreferrer" class="product-card">
+            <div class="product-img-wrapper">
+              <img src="images/product-scalp.jpg" alt="スカルプブラシ" onerror="this.src='https://picsum.photos/400/400?random=24'">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">【nonoru公式】スカルプブラシ 頭皮マッサージ</h3>
+              <span class="amazon-btn">Amazonで見る</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 日本語版 -->
+      <div class="ja-text">
+        <p>アントレプレナーシップ学科には「プロジェクト」という授業があります。その中でも私は<strong>ECコース</strong>に所属し、今年で2年目になります。</p>
+        <p>現在は基礎となる一連のスキルを身につけたため、既存コースという教員の元で、さらに実践的な活動を行っています。</p>
+
+        <h2 class="heading-l">ECコースの主な内容</h2>
+        <p>ECコースでは、ビジネスの基本である「物を仕入れて売る」という一連の流れを実践的に学び、自分で稼ぐ力を身につけることを目的としています。</p>
+
+        <h3 class="heading-m">どんなことをするの？</h3>
+        <p>あなた自身が「小売企業の新規事業担当者」となり、<strong>中国から商品を仕入れて、日本のAmazonで販売する</strong>というプロジェクトに挑戦します。</p>
+        
+        <p>具体的には、以下のようなステップで進めていきます。</p>
+
+        <ul class="step-list">
+          <li>
+            <span class="step-title">市場調査・商品選び（リサーチ）</span>
+            Amazonでどんな商品が売れているのか、競合はどんな商品をいくらで売っているのかを分析し、自分が扱う商品（美容品や生活雑貨など）を決定します。
+          </li>
+          <li>
+            <span class="step-title">クリエイティブ制作</span>
+            お客様に「欲しい！」と思ってもらうための商品画像やパッケージ、紹介動画などを作成します。最近では生成AIなどのツールも活用して魅力的な画像を作ります。
+          </li>
+          <li>
+            <span class="step-title">仕入れと納品</span>
+            輸入代行業者を利用して中国の工場から商品を買い付け、日本のAmazonの倉庫（FBA倉庫）へ納品します。
+          </li>
+          <li>
+            <span class="step-title">販売とマーケティング</span>
+            実際にAmazonで販売を開始し、広告を出したり、売上データ（KPI）を分析したりして、どうすればもっと売れるかを試行錯誤します。
+          </li>
+        </ul>
+
+        <h3 class="heading-m">更なる実践へ</h3>
+        <p>ゼロから自分自身で商品を企画・輸入して販売する「新規立ち上げ」のほかに、すでに先輩たちが立ち上げた既存ブランドの売上をさらに伸ばすためのマーケティングや画像改善に取り組む<strong>「既存プロジェクト（選抜制）」</strong>に参加する道も用意されています。上記の「NONORU」はまさにそのプロジェクトの一環です。</p>
+
+        <div class="highlight-box">
+          <h3 class="heading-m" style="margin-top: 0;">まとめると</h3>
+          <p>「やりたいことが見つかった時に、それを実現できる武器（スキルや経験）がない」という状態を防ぐために、<strong>マーケティング、デザイン制作、データ分析、利益の計算など、ビジネスに必要な総合的なスキルを「ネットショップ運営」を通してゼロから体系的に学ぶコース</strong>です。</p>
+          <p>本気で取り組めば、学生であっても月に数万円〜数十万円を稼ぐ力が身につく実践的な内容となっています。</p>
+        </div>
+      </div>
+
+      <!-- 英語版 -->
+      <div class="en-text">
+        <p>In the Faculty of Entrepreneurship, there is a class called "Project." Within this, I belong to the <strong>EC (E-Commerce) Course</strong>, and this is my second year.</p>
+        <p>Having acquired a series of fundamental skills, I am currently engaging in more practical activities under the guidance of instructors in the existing course framework.</p>
+
+        <h2 class="heading-l">Main Contents of the EC Course</h2>
+        <p>The goal of the EC course is to practically learn the fundamentals of business—"sourcing and selling goods"—and to acquire the ability to earn money independently.</p>
+
+        <h3 class="heading-m">What do we do?</h3>
+        <p>You take on the role of a "New Business Manager at a retail company" and challenge yourself with a project to <strong>source products from China and sell them on Amazon Japan</strong>.</p>
+        
+        <p>Specifically, we proceed with the following steps:</p>
+
+        <ul class="step-list">
+          <li>
+            <span class="step-title">Market Research & Product Selection</span>
+            Analyze what products are selling on Amazon, what products competitors are selling, and at what price, to determine the products you will handle (such as beauty products or household goods).
+          </li>
+          <li>
+            <span class="step-title">Creative Production</span>
+            Create product images, packaging, and promotional videos to make customers think, "I want this!" Recently, we also utilize tools like generative AI to create attractive images.
+          </li>
+          <li>
+            <span class="step-title">Sourcing & Delivery</span>
+            Purchase products from Chinese factories using import agents and deliver them to Amazon's warehouses in Japan (FBA warehouses).
+          </li>
+          <li>
+            <span class="step-title">Sales & Marketing</span>
+            Actually start selling on Amazon, run advertisements, analyze sales data (KPIs), and continuously iterate to figure out how to sell more.
+          </li>
+        </ul>
+
+        <h3 class="heading-m">Further Practical Application</h3>
+        <p>In addition to "New Launches," where you plan, import, and sell products from scratch on your own, there is also a path to participate in <strong>"Existing Projects (Selection-based)."</strong> Here, you work on marketing and image improvement to further increase the sales of existing brands launched by senior students. The brand "NONORU" listed above is exactly part of this project.</p>
+
+        <div class="highlight-box">
+          <h3 class="heading-m" style="margin-top: 0;">In Summary</h3>
+          <p>This is a course where you <strong>systematically learn comprehensive business skills from scratch through "online shop management"</strong>—including marketing, design production, data analysis, and profit calculation—so that you won't find yourself lacking the necessary weapons (skills or experience) when you find what you truly want to do.</p>
+          <p>It is highly practical; if you commit seriously, you can acquire the ability to earn tens of thousands to hundreds of thousands of yen a month, even as a student.</p>
+        </div>
+      </div>
+
+    </article>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      /* === シンプルな言語切り替えスクリプト === */
+      const langBtn = document.getElementById('langToggleBtn');
+      const currentLangText = document.getElementById('currentLang');
+      const body = document.body;
+
+      langBtn.addEventListener('click', () => {
+        if (body.classList.contains('en-mode')) {
+          body.classList.remove('en-mode');
+          currentLangText.innerText = 'ja';
+        } else {
+          body.classList.add('en-mode');
+          currentLangText.innerText = 'en';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
