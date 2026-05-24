@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DN7ZXMKLHK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DN7ZXMKLHK');
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Akira Fukuda profile</title>
@@ -10,11 +20,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ========== ベース設定 ========== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Helvetica Neue', 'Helvetica', 'Noto Serif JP', serif; background-color: #fcfcfc; color: #111; overflow-x: hidden; }
 
-    /* ========== ナビゲーションバー ========== */
     .top-bar { position: fixed; top: 0; left: 0; width: 100%; padding: 30px 40px; display: flex; justify-content: space-between; align-items: center; z-index: 100; pointer-events: none; }
     .interactive { pointer-events: auto; }
     .logo-link { display: inline-flex; align-items: center; text-decoration: none; }
@@ -30,7 +38,6 @@
     .nav-toggle a:hover { opacity: 0.7; }
     .nav-toggle a.active { border: 1px solid #ccc; background: #f9f9f9; pointer-events: none; }
 
-    /* ========== 1. ヒーロー ========== */
     .profile-hero { position: relative; width: 100vw; height: 70vh; background-image: url('images/profile-hero.jpg'); background-size: cover; background-position: center; clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%); margin-bottom: 50px; }
     .profile-hero::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.15); }
     .hero-text-box { position: absolute; right: 10%; bottom: 30%; z-index: 2; color: #ffffff; text-align: right; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
@@ -38,7 +45,6 @@
     .hero-main-title { font-size: 3.5rem; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-weight: bold; letter-spacing: -1px; margin-bottom: 15px; }
     .hero-sub { font-size: 0.9rem; font-weight: 500; line-height: 1.6; letter-spacing: 1px; }
 
-    /* ========== 2. コンテンツエリア ========== */
     .profile-content { max-width: 800px; margin: 0 auto; padding: 0 20px 100px; text-align: center; }
     .breadcrumb { font-size: 0.85rem; color: #999; letter-spacing: 1px; margin-bottom: 40px; text-align: left; }
     .breadcrumb a { color: #999; text-decoration: none; transition: color 0.3s; }
@@ -48,7 +54,6 @@
     .profile-main-image { width: 100%; height: auto; margin-bottom: 80px; }
     .profile-main-image img { width: 100%; height: auto; object-fit: cover; border-radius: 4px; }
 
-    /* ========== 3. タイムライン ========== */
     .timeline-wrapper { position: relative; max-width: 800px; margin: 0 auto; padding: 40px 0; }
     .timeline-wrapper::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 2px; height: 100%; background-color: #ddd; }
     .timeline-item { position: relative; width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 60px; opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
@@ -64,7 +69,6 @@
     .content-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: #222; }
     .content-desc { font-size: 0.95rem; line-height: 1.6; color: #666; }
 
-    /* ========== Meet セクション ========== */
     .profile-meet-section { margin-top: 100px; padding: 60px 40px; background-color: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); text-align: center; }
     .profile-meet-title { font-size: 2rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; }
     .profile-meet-desc { font-size: 1rem; color: #555; line-height: 1.8; margin-bottom: 40px; }
@@ -76,7 +80,6 @@
     .kyu-merge-btn:hover .btn-text { padding-right: 56px; background-color: #00a5b8; }
     .kyu-merge-btn:hover .btn-icon { right: 0; background-color: transparent; }
 
-    /* ========== 4. インフォメーション ========== */
     .profile-info-box { background-color: #f2f2f2; padding: 40px; margin-top: 50px; text-align: left; border-radius: 4px; }
     .info-title { font-size: 1rem; font-weight: 500; color: #555; margin-bottom: 15px; }
     .info-list { list-style: none; font-size: 0.95rem; color: #666; line-height: 2; }
@@ -86,7 +89,6 @@
     .profile-dates { margin-top: 40px; text-align: left; font-size: 0.9rem; color: #999; line-height: 2; font-family: monospace; letter-spacing: 1px; }
     .profile-dates span { display: inline-block; width: 100px; font-family: 'Helvetica Neue', 'Helvetica', 'Noto Serif JP', serif; }
 
-    /* ========== 5. Footer ========== */
     .footer-section { padding: 80px 0; background-color: #fcfcfc; text-align: center; margin-top: 100px; border-top: 1px solid #ddd; }
     .footer-card { width: 95%; max-width: 1400px; margin: 0 auto; background-color: #0a192f; border-radius: 25px; color: #fff; padding: 60px 80px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; }
     .footer-top { display: flex; justify-content: space-between; align-items: flex-start; }
@@ -102,12 +104,10 @@
     .sns-buttons a:hover { background-color: #fff; color: #0a192f; border-color: #fff; }
     .footer-copy { font-size: 0.8rem; color: #6a7a8a; letter-spacing: 1px; font-weight: 300; }
 
-    /* 言語切り替え用 CSS */
     .en-text { display: none; }
     body.en-mode .ja-text { display: none; }
     body.en-mode .en-text { display: block; }
 
-    /* スマホ対応 */
     @media (max-width: 768px) {
       .profile-hero { height: 50vh; clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); }
       .hero-text-box { right: 5%; bottom: 20%; }
@@ -260,18 +260,15 @@
         <li>- SNS: <a href="https://x.com/AFGToffical" target="_blank" rel="noopener noreferrer">X (@AFGToffical)</a> / <a href="https://www.instagram.com/akirafukuda_offical/" target="_blank" rel="noopener noreferrer">Instagram (@akirafukuda_offical)</a></li>
       </ul>
     </div>
-    
-    <!-- ★ 公開日・最終更新日を 2026/05/24 に変更 ★ -->
     <div class="profile-dates fade-in-element">
       <div class="ja-text"><span>公開日：</span> 2026/05/24</div>
       <div class="ja-text"><span>最終更新日：</span> 2026/05/24</div>
       <div class="en-text"><span>Published：</span> 2026/05/24</div>
       <div class="en-text"><span>Updated：</span> 2026/05/24</div>
     </div>
-
   </section>
 
-  <!-- 共通 Footer -->
+  <!-- Footer -->
   <section class="footer-section">
     <div class="footer-card">
       <div class="footer-top">

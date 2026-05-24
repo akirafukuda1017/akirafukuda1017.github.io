@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DN7ZXMKLHK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DN7ZXMKLHK');
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Akira Fukuda | memo</title>
@@ -10,11 +20,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ========== ベース設定 ========== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Helvetica Neue', 'Helvetica', 'Noto Serif JP', serif; background-color: #f7f7f7; color: #111; min-height: 100vh; display: flex; flex-direction: column; }
 
-    /* ========== ナビゲーションバー ========== */
     .top-bar { width: 100%; padding: 30px 40px; display: flex; justify-content: space-between; align-items: center; }
     .breadcrumb-nav { font-size: 1.1rem; letter-spacing: 1px; color: #999; display: flex; align-items: center; gap: 10px; }
     .breadcrumb-nav a { color: #999; text-decoration: none; transition: color 0.3s; }
@@ -25,32 +33,16 @@
     .lang-switch-box { display: flex; align-items: center; gap: 5px; background-color: #eaeaea; padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; cursor: pointer; transition: background-color 0.3s; }
     .lang-switch-box:hover { background-color: #ddd; }
 
-    /* ========== メインコンテンツ ========== */
-    .main-content { 
-      flex: 1; 
-      display: flex; 
-      flex-direction: column; 
-      padding-top: 15vh; 
-      padding-left: 25%; 
-      padding-right: 15%; 
-      padding-bottom: 15vh; 
-      max-width: 1200px; 
-      margin: 0 auto; 
-      width: 100%;
-    }
+    .main-content { flex: 1; display: flex; flex-direction: column; padding-top: 15vh; padding-left: 25%; padding-right: 15%; padding-bottom: 15vh; max-width: 1200px; margin: 0 auto; width: 100%; }
 
     .page-icon { font-size: 4rem; margin-bottom: 10px; }
     .page-title { font-size: 4.5rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 60px; color: #000; }
 
-    /* ★ セクション共通デザイン ★ */
     .memo-section { margin-bottom: 80px; }
     .memo-section-title { font-size: 2rem; font-weight: 700; margin-bottom: 30px; color: #111; border-bottom: 2px solid #eaeaea; padding-bottom: 15px; }
 
-    /* リスト形式（updates, think about用） */
     .memo-list { list-style: none; }
-    .memo-item {
-      display: flex; align-items: flex-start; margin-bottom: 30px; text-decoration: none; color: inherit; transition: transform 0.3s, opacity 0.3s;
-    }
+    .memo-item { display: flex; align-items: flex-start; margin-bottom: 30px; text-decoration: none; color: inherit; transition: transform 0.3s, opacity 0.3s; }
     a.memo-item:hover { transform: translateX(5px); opacity: 0.7; }
 
     .memo-item-icon { font-size: 1.8rem; margin-right: 20px; margin-top: 2px; width: 30px; text-align: center; }
@@ -58,32 +50,13 @@
     .memo-item-title { font-size: 1.15rem; font-weight: 500; color: #111; margin-bottom: 5px; line-height: 1.4;}
     .memo-item-desc { font-size: 0.9rem; color: #777; letter-spacing: 0.5px; }
 
-    /* ★ ギア（機材）セクション用のデザイン ★ */
-    .gear-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-    
-    .gear-card {
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.03);
-      border: 1px solid #eee;
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.3s, box-shadow 0.3s;
-      display: flex;
-      flex-direction: column;
-    }
+    .gear-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .gear-card { background-color: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); border: 1px solid #eee; text-decoration: none; color: inherit; transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
     a.gear-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
-
     .gear-category { font-size: 0.85rem; color: #999; font-weight: 500; letter-spacing: 1px; margin-bottom: 10px; text-transform: uppercase; }
     .gear-name { font-size: 1.3rem; font-weight: 700; color: #111; margin-bottom: 15px; line-height: 1.3; }
     .gear-icon { font-size: 2.5rem; margin-top: auto; text-align: right; } 
 
-    /* ========== フッター ========== */
     .footer-section { padding: 80px 0; background-color: #f7f7f7; text-align: center; margin-top: 50px; border-top: 1px solid #ddd; }
     .footer-card { width: 95%; max-width: 1400px; margin: 0 auto; background-color: #0a192f; border-radius: 25px; color: #fff; padding: 60px 80px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; }
     .footer-top { display: flex; justify-content: space-between; align-items: flex-start; }
@@ -99,12 +72,10 @@
     .sns-buttons a:hover { background-color: #fff; color: #0a192f; border-color: #fff; }
     .footer-copy { font-size: 0.8rem; color: #6a7a8a; letter-spacing: 1px; font-weight: 300; }
 
-    /* ========== 言語切り替え用 CSS ========== */
     .en-text { display: none; }
     body.en-mode .ja-text { display: none; }
     body.en-mode .en-text { display: block; }
 
-    /* ========== スマホ対応 ========== */
     @media (max-width: 768px) {
       .top-bar { padding: 20px; flex-direction: column; align-items: flex-start; gap: 20px; }
       .breadcrumb-nav { font-size: 0.9rem; flex-wrap: wrap; }
@@ -143,13 +114,10 @@
     <div class="page-icon">📰</div>
     <h1 class="page-title">memo</h1>
     
-    <!-- ==============================
-         1. updates セクション
-    =============================== -->
+    <!-- 1. updates -->
     <div class="memo-section">
       <h2 class="memo-section-title">updates</h2>
       <ul class="memo-list">
-        
         <a href="updates_20260524.html" class="memo-item">
           <div class="memo-item-icon">🛠️</div>
           <div class="memo-item-content">
@@ -158,18 +126,13 @@
             <div class="memo-item-desc">2026/05/24</div>
           </div>
         </a>
-
       </ul>
     </div>
 
-    <!-- ==============================
-         2. think about セクション
-    =============================== -->
+    <!-- 2. think about -->
     <div class="memo-section">
       <h2 class="memo-section-title">think about</h2>
       <ul class="memo-list">
-        
-        <!-- ★ タイトルを note の記事タイトルに変更 ★ -->
         <a href="https://note.com/akirafukuda1017/n/n06c09711b631" target="_blank" rel="noopener noreferrer" class="memo-item">
           <div class="memo-item-icon">📝</div>
           <div class="memo-item-content">
@@ -179,13 +142,10 @@
             <div class="memo-item-desc en-text">Read article ↗︎</div>
           </div>
         </a>
-
       </ul>
     </div>
 
-    <!-- ==============================
-         3. gear セクション
-    =============================== -->
+    <!-- 3. gear -->
     <div class="memo-section">
       <h2 class="memo-section-title">gear</h2>
       <div class="gear-grid">
@@ -246,19 +206,13 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      /* === シンプルな言語切り替えスクリプト === */
       const langBtn = document.getElementById('langToggleBtn');
       const currentLangText = document.getElementById('currentLang');
       const body = document.body;
 
       langBtn.addEventListener('click', () => {
-        if (body.classList.contains('en-mode')) {
-          body.classList.remove('en-mode');
-          currentLangText.innerText = 'ja';
-        } else {
-          body.classList.add('en-mode');
-          currentLangText.innerText = 'en';
-        }
+        if (body.classList.contains('en-mode')) { body.classList.remove('en-mode'); currentLangText.innerText = 'ja'; } 
+        else { body.classList.add('en-mode'); currentLangText.innerText = 'en'; }
       });
     });
   </script>

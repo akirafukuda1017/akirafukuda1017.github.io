@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DN7ZXMKLHK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DN7ZXMKLHK');
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Akira Fukuda | contacts</title>
@@ -10,190 +20,55 @@
   <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
 
   <style>
-    /* ========== ベース設定 ========== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { 
-      font-family: 'Helvetica Neue', 'Helvetica', 'Noto Serif JP', serif; 
-      background-color: #f7f7f7; 
-      color: #111; 
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+    body { font-family: 'Helvetica Neue', 'Helvetica', 'Noto Serif JP', serif; background-color: #f7f7f7; color: #111; min-height: 100vh; display: flex; flex-direction: column; }
 
-    /* ========== ナビゲーションバー ========== */
-    .top-bar { 
-      width: 100%; 
-      padding: 30px 40px; 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
-    }
-    
-    .breadcrumb-nav {
-      font-size: 1.1rem;
-      letter-spacing: 1px;
-      color: #999;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .top-bar { width: 100%; padding: 30px 40px; display: flex; justify-content: space-between; align-items: center; }
+    .breadcrumb-nav { font-size: 1.1rem; letter-spacing: 1px; color: #999; display: flex; align-items: center; gap: 10px; }
     .breadcrumb-nav a { color: #999; text-decoration: none; transition: color 0.3s; }
     .breadcrumb-nav a:hover { color: #111; }
     .breadcrumb-nav .separator { color: #ccc; font-weight: 300; }
     .breadcrumb-nav .current-page { color: #111; font-weight: 500; }
 
-    .lang-switch-box {
-      display: flex; align-items: center; gap: 5px;
-      background-color: #eaeaea; padding: 8px 15px; border-radius: 20px;
-      font-size: 0.9rem; cursor: pointer; transition: background-color 0.3s;
-    }
+    .lang-switch-box { display: flex; align-items: center; gap: 5px; background-color: #eaeaea; padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; cursor: pointer; transition: background-color 0.3s; }
     .lang-switch-box:hover { background-color: #ddd; }
 
-    /* ========== メインコンテンツ ========== */
-    .main-content {
-      flex: 1; 
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-left: 25%; 
-      padding-right: 15%;
-      padding-bottom: 10vh; 
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
+    .main-content { flex: 1; display: flex; flex-direction: column; justify-content: center; padding-left: 25%; padding-right: 15%; padding-bottom: 10vh; max-width: 1200px; margin: 0 auto; width: 100%; }
     .page-icon { font-size: 4rem; margin-bottom: 20px; }
     .page-title { font-size: 4.5rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 30px; color: #000; }
 
-    /* ★ 連絡先カードのデザイン ★ */
-    .contact-container {
-      background-color: #fff;
-      padding: 60px 80px;
-      border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.03);
-      width: 100%;
-      max-width: 800px;
-    }
+    .contact-container { background-color: #fff; padding: 60px 80px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); width: 100%; max-width: 800px; }
+    .contact-desc { font-size: 1.05rem; line-height: 1.8; color: #555; margin-bottom: 40px; }
+    .contact-list { list-style: none; }
+    .contact-item { display: flex; align-items: flex-start; margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid #eaeaea; }
+    .contact-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .contact-icon { font-size: 1.8rem; width: 60px; height: 60px; background-color: #f2f2f2; border-radius: 50%; display: flex; justify-content: center; align-items: center; flex-shrink: 0; margin-right: 25px; }
+    .contact-info { flex: 1; }
+    .info-label { font-size: 0.9rem; color: #888; font-weight: 500; margin-bottom: 8px; letter-spacing: 1px; }
+    .info-value { font-size: 1.2rem; font-weight: 500; color: #111; }
+    .info-value a { color: #111; text-decoration: none; transition: color 0.3s, opacity 0.3s; }
+    .info-value a:hover { color: #00c3d9; }
 
-    .contact-desc {
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: #555;
-      margin-bottom: 40px;
-    }
+    .line-btn { display: inline-flex; align-items: center; gap: 10px; background-color: #06c755; color: #fff !important; padding: 12px 25px; border-radius: 30px; font-size: 1rem; font-weight: 700; text-decoration: none; transition: background-color 0.3s, transform 0.2s; margin-top: 5px; }
+    .line-btn:hover { background-color: #05a746; transform: translateY(-2px); }
 
-    .contact-list {
-      list-style: none;
-    }
+    .sns-links { display: flex; gap: 20px; margin-top: 10px; }
+    .sns-links a { font-size: 1.1rem; color: #00c3d9; font-weight: 700; text-decoration: underline; }
+    .sns-links a:hover { opacity: 0.7; }
 
-    .contact-item {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 30px;
-      padding-bottom: 30px;
-      border-bottom: 1px solid #eaeaea;
-    }
-    .contact-item:last-child {
-      margin-bottom: 0;
-      padding-bottom: 0;
-      border-bottom: none;
-    }
-
-    .contact-icon {
-      font-size: 1.8rem;
-      width: 60px;
-      height: 60px;
-      background-color: #f2f2f2;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-shrink: 0;
-      margin-right: 25px;
-    }
-
-    .contact-info {
-      flex: 1;
-    }
-
-    .info-label {
-      font-size: 0.9rem;
-      color: #888;
-      font-weight: 500;
-      margin-bottom: 8px;
-      letter-spacing: 1px;
-    }
-
-    .info-value {
-      font-size: 1.2rem;
-      font-weight: 500;
-      color: #111;
-    }
-
-    /* リンクの装飾 */
-    .info-value a {
-      color: #111;
-      text-decoration: none;
-      transition: color 0.3s, opacity 0.3s;
-    }
-    .info-value a:hover {
-      color: #00c3d9;
-    }
-
-    /* LINEボタンの特別デザイン */
-    .line-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background-color: #06c755;
-      color: #fff !important;
-      padding: 12px 25px;
-      border-radius: 30px;
-      font-size: 1rem;
-      font-weight: 700;
-      text-decoration: none;
-      transition: background-color 0.3s, transform 0.2s;
-      margin-top: 5px;
-    }
-    .line-btn:hover {
-      background-color: #05a746;
-      transform: translateY(-2px);
-    }
-
-    /* SNSリンク集 */
-    .sns-links {
-      display: flex;
-      gap: 20px;
-      margin-top: 10px;
-    }
-    .sns-links a {
-      font-size: 1.1rem;
-      color: #00c3d9;
-      font-weight: 700;
-      text-decoration: underline;
-    }
-    .sns-links a:hover {
-      opacity: 0.7;
-    }
-
-    /* ========== 言語切り替え用 CSS ========== */
     .en-text { display: none; }
     body.en-mode .ja-text { display: none; }
     body.en-mode .en-text { display: block; }
 
-    /* ========== スマホ対応 ========== */
     @media (max-width: 768px) {
       .top-bar { padding: 20px; flex-direction: column; align-items: flex-start; gap: 20px; }
       .breadcrumb-nav { font-size: 0.9rem; flex-wrap: wrap; }
       .main-content { padding-left: 5%; padding-right: 5%; padding-top: 5vh; }
       .page-title { font-size: 3.5rem; }
-      
       .contact-container { padding: 40px 25px; }
       .contact-item { flex-direction: column; }
       .contact-icon { width: 50px; height: 50px; font-size: 1.5rem; margin-bottom: 15px; margin-right: 0; }
-      .info-value { font-size: 1.1rem; word-break: break-all; } /* メールアドレスが折り返されるように */
+      .info-value { font-size: 1.1rem; word-break: break-all; } 
     }
   </style>
 </head>
@@ -202,7 +77,6 @@
   <!-- ナビゲーションバー -->
   <div class="top-bar">
     <div class="breadcrumb-nav">
-      <!-- 繋がりを exhibition / profile / contacts に設定 -->
       <a href="index.html">exhibition</a>
       <span class="separator">/</span>
       <a href="profile.html">profile</a>
@@ -221,8 +95,6 @@
     <h1 class="page-title">contacts</h1>
     
     <div class="contact-container">
-      
-      <!-- 説明テキスト -->
       <div class="contact-desc ja-text">
         撮影のご依頼、プロジェクトに関するご相談、または対話（meet）をご希望の方など、<br>お気軽にご連絡ください。通常、2〜3日以内にご返信いたします。
       </div>
@@ -230,49 +102,36 @@
         Please feel free to contact me regarding shooting requests, project consultations, or if you would like to arrange a meeting.<br>I typically reply within 2-3 business days.
       </div>
 
-      <!-- 連絡先リスト -->
       <ul class="contact-list">
-        
-        <!-- メール -->
         <li class="contact-item">
           <div class="contact-icon">📧</div>
           <div class="contact-info">
             <div class="info-label ja-text">メールアドレス</div>
             <div class="info-label en-text">Email Address</div>
-            <div class="info-value">
-              <a href="mailto:akirafukuda865@gmail.com">akirafukuda865@gmail.com</a>
-            </div>
+            <div class="info-value"><a href="mailto:akirafukuda865@gmail.com">akirafukuda865@gmail.com</a></div>
           </div>
         </li>
 
-        <!-- LINE -->
         <li class="contact-item">
           <div class="contact-icon">💬</div>
           <div class="contact-info">
             <div class="info-label ja-text">LINEでのお問い合わせ</div>
             <div class="info-label en-text">Contact via LINE</div>
             <div class="info-value">
-              <!-- LINEは目立たせるために専用の緑色ボタンにしています -->
-              <a href="https://line.me/ti/p/2mf0V9MZHL" target="_blank" rel="noopener noreferrer" class="line-btn">
-                友達追加・ご連絡はこちら
-              </a>
+              <a href="https://line.me/ti/p/2mf0V9MZHL" target="_blank" rel="noopener noreferrer" class="line-btn">友達追加・ご連絡はこちら</a>
             </div>
           </div>
         </li>
 
-        <!-- 電話 -->
         <li class="contact-item">
           <div class="contact-icon">📱</div>
           <div class="contact-info">
             <div class="info-label ja-text">電話番号</div>
             <div class="info-label en-text">Phone Number</div>
-            <div class="info-value">
-              <a href="tel:07038824072">070-3882-4072</a>
-            </div>
+            <div class="info-value"><a href="tel:07038824072">070-3882-4072</a></div>
           </div>
         </li>
 
-        <!-- 拠点・所属 -->
         <li class="contact-item">
           <div class="contact-icon">📍</div>
           <div class="contact-info">
@@ -285,7 +144,6 @@
           </div>
         </li>
 
-        <!-- SNS -->
         <li class="contact-item">
           <div class="contact-icon">🔗</div>
           <div class="contact-info">
@@ -297,26 +155,19 @@
             </div>
           </div>
         </li>
-
       </ul>
     </div>
   </main>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      /* === シンプルな言語切り替えスクリプト === */
       const langBtn = document.getElementById('langToggleBtn');
       const currentLangText = document.getElementById('currentLang');
       const body = document.body;
 
       langBtn.addEventListener('click', () => {
-        if (body.classList.contains('en-mode')) {
-          body.classList.remove('en-mode');
-          currentLangText.innerText = 'ja';
-        } else {
-          body.classList.add('en-mode');
-          currentLangText.innerText = 'en';
-        }
+        if (body.classList.contains('en-mode')) { body.classList.remove('en-mode'); currentLangText.innerText = 'ja'; } 
+        else { body.classList.add('en-mode'); currentLangText.innerText = 'en'; }
       });
     });
   </script>

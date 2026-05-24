@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DN7ZXMKLHK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DN7ZXMKLHK');
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Akira Fukuda | updates</title>
@@ -10,14 +20,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ========== ベース設定 ========== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Helvetica Neue', 'Helvetica', 'Noto Serif JP', serif; background-color: #f7f7f7; color: #111; min-height: 100vh; display: flex; flex-direction: column; }
 
-    /* ========== ナビゲーションバー ========== */
     .top-bar { width: 100%; padding: 30px 40px; display: flex; justify-content: space-between; align-items: center; }
-    
-    /* パンくずリスト（5階層） */
     .breadcrumb-nav { font-size: 1rem; letter-spacing: 1px; color: #999; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .breadcrumb-nav a { color: #999; text-decoration: none; transition: color 0.3s; }
     .breadcrumb-nav a:hover { color: #111; }
@@ -27,44 +33,21 @@
     .lang-switch-box { display: flex; align-items: center; gap: 5px; background-color: #eaeaea; padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; cursor: pointer; transition: background-color 0.3s; }
     .lang-switch-box:hover { background-color: #ddd; }
 
-    /* ========== 記事のメインコンテンツ ========== */
-    .main-content { 
-      flex: 1; 
-      display: flex; 
-      flex-direction: column; 
-      padding-top: 10vh; 
-      padding-left: 20%; 
-      padding-right: 20%; 
-      padding-bottom: 10vh; 
-      max-width: 1200px; 
-      margin: 0 auto; 
-      width: 100%;
-    }
+    .main-content { flex: 1; display: flex; flex-direction: column; padding-top: 10vh; padding-left: 20%; padding-right: 20%; padding-bottom: 15vh; max-width: 1200px; margin: 0 auto; width: 100%; }
 
-    /* 記事ヘッダー */
     .article-header { margin-bottom: 50px; }
     .article-date { font-size: 1rem; color: #00c3d9; font-weight: 700; font-family: monospace; letter-spacing: 1px; margin-bottom: 15px; }
     .article-title { font-size: 3rem; font-weight: 700; letter-spacing: -1px; color: #000; line-height: 1.3; }
 
-    /* 記事本文のスタイル */
-    .article-body {
-      background-color: #fff;
-      padding: 60px 80px;
-      border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.03);
-      line-height: 2;
-      color: #333;
-      font-size: 1.05rem;
-    }
-
+    .article-body { background-color: #fff; padding: 60px 80px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); line-height: 2; color: #333; font-size: 1.05rem; }
     .article-body p { margin-bottom: 25px; }
-    
-    /* 戻るボタン */
+    .article-body h2 { font-size: 1.5rem; font-weight: 700; margin-top: 50px; margin-bottom: 20px; color: #111; border-left: 4px solid #00c3d9; padding-left: 15px; }
+    .article-body strong { color: #111; font-weight: 700; }
+
     .back-btn-wrapper { margin-top: 50px; text-align: left; }
     .back-btn { display: inline-flex; align-items: center; padding: 12px 30px; background-color: #222; color: #fff; text-decoration: none; border-radius: 30px; font-size: 0.9rem; font-weight: 500; letter-spacing: 1px; transition: background-color 0.3s; }
     .back-btn:hover { background-color: #555; }
 
-    /* ========== フッター ========== */
     .footer-section { padding: 80px 0; background-color: #f7f7f7; text-align: center; margin-top: 50px; border-top: 1px solid #ddd; }
     .footer-card { width: 95%; max-width: 1400px; margin: 0 auto; background-color: #0a192f; border-radius: 25px; color: #fff; padding: 60px 80px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; }
     .footer-top { display: flex; justify-content: space-between; align-items: flex-start; }
@@ -80,18 +63,17 @@
     .sns-buttons a:hover { background-color: #fff; color: #0a192f; border-color: #fff; }
     .footer-copy { font-size: 0.8rem; color: #6a7a8a; letter-spacing: 1px; font-weight: 300; }
 
-    /* 言語切り替え用 CSS */
     .en-text { display: none; }
     body.en-mode .ja-text { display: none; }
     body.en-mode .en-text { display: block; }
 
-    /* スマホ対応 */
     @media (max-width: 768px) {
       .top-bar { padding: 20px; flex-direction: column; align-items: flex-start; gap: 20px; }
       .breadcrumb-nav { font-size: 0.85rem; }
       .main-content { padding-top: 5vh; padding-left: 5%; padding-right: 5%; }
       .article-title { font-size: 2rem; }
       .article-body { padding: 30px 20px; font-size: 0.95rem; }
+      .article-body h2 { font-size: 1.3rem; margin-top: 40px; }
       .footer-card { padding: 40px 30px; border-radius: 20px; }
       .footer-top { flex-direction: column; gap: 40px; }
       .footer-logo { height: 50px; }
@@ -113,7 +95,6 @@
       <span class="separator">/</span>
       <a href="memo.html">updates</a>
       <span class="separator">/</span>
-      <!-- 記事の日付 -->
       <span class="current-page">2026/05/24</span>
     </div>
     
@@ -122,14 +103,11 @@
     </div>
   </div>
 
-  <!-- メインコンテンツ（記事エリア） -->
+  <!-- メインコンテンツ -->
   <main class="main-content">
     
     <div class="article-header">
-      <!-- 記事の日付 -->
       <div class="article-date">2026.05.24</div>
-      
-      <!-- 記事のタイトル -->
       <h1 class="article-title ja-text">サイトを公開しました。</h1>
       <h1 class="article-title en-text">Launched the website.</h1>
     </div>
@@ -150,7 +128,6 @@
       </div>
     </article>
 
-    <!-- memoページに戻るボタン -->
     <div class="back-btn-wrapper">
       <a href="memo.html" class="back-btn">← Back to memo</a>
     </div>
@@ -190,19 +167,13 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      /* === 言語切り替えスクリプト === */
       const langBtn = document.getElementById('langToggleBtn');
       const currentLangText = document.getElementById('currentLang');
       const body = document.body;
 
       langBtn.addEventListener('click', () => {
-        if (body.classList.contains('en-mode')) {
-          body.classList.remove('en-mode');
-          currentLangText.innerText = 'ja';
-        } else {
-          body.classList.add('en-mode');
-          currentLangText.innerText = 'en';
-        }
+        if (body.classList.contains('en-mode')) { body.classList.remove('en-mode'); currentLangText.innerText = 'ja'; } 
+        else { body.classList.add('en-mode'); currentLangText.innerText = 'en'; }
       });
     });
   </script>
